@@ -1,40 +1,29 @@
 #[warn(non_snake_case)]
 fn main() {
-    let input = "3
-101 9901 999999000001";
-
+    let input = "9 45000";
     culc(input);
 }
 
 fn culc(input: &str) {
-    if let Some(val) = helper(input) {
-        println!("{}", val);
-    } else {
-        println!("-1");
-    }
+    println!("{}", helper(input));
 }
 
-fn helper(input: &str) -> Option<u64> {
-    let input: Vec<&str> = input.split("\n").collect();
-    let T: Vec<u64> = input[1]
+fn helper(input: &str) -> String {
+    let input: Vec<u64> = input
         .split(" ")
         .map(|val| val.parse::<u64>().unwrap())
         .collect();
+    let N = input[0];
+    let Y = input[1];
 
-    for t in T.clone() {
-        if t == 0 {
-            return Some(0);
+    for i in 0..N {
+        for j in 0..(N - i) {
+            let k = N - i - j;
+            if k * 10000 + j * 5000 + i * 1000 == Y {
+                return format!("{} {} {}", k, j, i);
+            }
         }
     }
 
-    let mut result = 1;
-    let limit = u64::pow(10, 18);
-    for t in T {
-        result = result * t;
-        if result > limit {
-            return None;
-        }
-    }
-
-    Some(result)
+    format!("-1 -1 -1")
 }
