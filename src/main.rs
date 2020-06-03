@@ -1,6 +1,8 @@
 #[warn(non_snake_case)]
 fn main() {
-    let input = "9 45000";
+    let input = "erasedream";
+    let input = "dreameraser";
+    let input = "dreamerer";
     culc(input);
 }
 
@@ -8,22 +10,35 @@ fn culc(input: &str) {
     println!("{}", helper(input));
 }
 
-fn helper(input: &str) -> String {
-    let input: Vec<u64> = input
-        .split(" ")
-        .map(|val| val.parse::<u64>().unwrap())
-        .collect();
-    let N = input[0];
-    let Y = input[1];
+fn helper(input: &str) -> bool {
+    dbg!(input);
+    if input.len() == 0 {
+        return true;
+    }
 
-    for i in 0..N {
-        for j in 0..(N - i) {
-            let k = N - i - j;
-            if k * 10000 + j * 5000 + i * 1000 == Y {
-                return format!("{} {} {}", k, j, i);
-            }
+    if input.starts_with("dream") {
+        if helper(&input[5..]) {
+            return true;
         }
     }
 
-    format!("-1 -1 -1")
+    if input.starts_with("dreamer") {
+        if helper(&input[6..]) {
+            return true;
+        }
+    }
+
+    if input.starts_with("erase") {
+        if helper(&input[5..]) {
+            return true;
+        }
+    }
+
+    if input.starts_with("eraser") {
+        if helper(&input[6..]) {
+            return true;
+        }
+    }
+
+    false
 }
