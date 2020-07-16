@@ -48,3 +48,42 @@ fn culc(r: &mut Vec<usize>, g: &mut Vec<usize>, b: &mut Vec<usize>) -> usize {
   }
   result
 }
+
+fn better_sol() {
+  input! {
+    _N: usize,
+    S: String
+  }
+  
+  let mut rs: usize = 0;
+  let mut gs: usize = 0;
+  let mut bs: usize = 0;
+  
+  for (i, c) in S.chars().enumerate() {
+    match c {
+      'R' => rs += 1,
+      'G' => gs += 1,
+      'B' => bs += 1,
+      _ => unreachable!()
+    }
+  }
+  let mut result = rs * gs * bs;
+  
+  let chars: Vec<char> = S.chars().collect();
+  let chars_len = chars.len();
+  for i in 0..chars_len {
+    let c = chars[i];
+    for j in (i+1)..chars_len {
+    let cc = chars[j];
+      if c == cc { continue };
+      let k = 2 * j - i;
+      if chars_len <= k { continue }
+      let ccc = chars[k];
+      if c != ccc && cc != ccc {
+        result -= 1;
+      }
+    }
+  }
+  
+  println!("{}", result);
+}
