@@ -1,4 +1,4 @@
-#[allow(unused_imports)]
+#![allow(unused_imports)]
 use proconio::input;
 use proconio::marker::*;
 use std::collections::HashSet;
