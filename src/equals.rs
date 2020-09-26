@@ -61,10 +61,7 @@ fn main() {
   for (a, b) in queries.iter() {
     connect(&mut parents, *a, *b);
   }
-  for (a, b) in queries {
-    connect(&mut parents, a, b);
-  }
-  
+
   let mut map: HashMap<usize, HashSet<usize>> = HashMap::new();
   
   for i in 0..n {
@@ -73,6 +70,7 @@ fn main() {
       let entry = map.entry(i).or_insert(HashSet::new());
       entry.insert(i);
     } else {
+      let v = find(&mut parents, v);
       let uv = v as usize;
       let entry = map.entry(uv).or_insert(HashSet::new());
       entry.insert(i);
