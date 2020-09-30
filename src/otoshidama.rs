@@ -1,29 +1,25 @@
-#[warn(non_snake_case)]
+#![allow(unused_imports)]
+use proconio::input;
+use proconio::marker::*;
+use std::collections::VecDeque;
+
 fn main() {
-    let input = "9 45000";
-    culc(input);
-}
-
-fn culc(input: &str) {
-    println!("{}", helper(input));
-}
-
-fn helper(input: &str) -> String {
-    let input: Vec<u64> = input
-        .split(" ")
-        .map(|val| val.parse::<u64>().unwrap())
-        .collect();
-    let N = input[0];
-    let Y = input[1];
-
-    for i in 0..N {
-        for j in 0..(N - i) {
-            let k = N - i - j;
-            if k * 10000 + j * 5000 + i * 1000 == Y {
-                return format!("{} {} {}", k, j, i);
-            }
-        }
+  input!{
+    n: usize,
+    y: usize
+  }
+  
+  for i in 0..=n {
+    let v = i * 1000;
+    for ii in 0..=n-i {
+      let vv = ii * 5000;
+      if y < v + vv { break }
+      let left = y - v - vv;
+      if left % 10000 == 0 && (left / 10000) + i + ii == n {
+        println!("{} {} {}", n - i - ii, ii, i);
+        return
+      }
     }
-
-    format!("-1 -1 -1")
+  }
+  println!("-1 -1 -1");
 }
