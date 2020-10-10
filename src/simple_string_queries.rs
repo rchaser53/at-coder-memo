@@ -117,3 +117,43 @@ where T: Num + Copy + Clone {
     self.sum_one(r-1) - self.sum_one(l-1)
   }
 }
+
+#![allow(unused_imports)]
+use std::cmp::*;
+use std::collections::*;
+use proconio::{input, marker::*, fastout};
+
+fn main() {
+  input! {
+    n: usize,
+    mut s: Bytes,
+    q: usize
+  }
+  s.iter_mut().for_each(|c| *c -= b'a');
+  let mut index = vec![BTreeSet::new(); 26];
+  for (i, &b) in s.iter().enumerate() {
+    index[b as usize].insert(i);
+  }
+  
+  for _ in 0..q {
+    input!{ command: usize }
+    if command == 1 {
+      input!{ i:Usize1, c: char }
+      let c = c as u8 - b'a';
+      let c2 = s[i];
+      s[i] = c;
+      index[c2 as usize].remove(&i);
+      index[c as usize].insert(i);
+    } else {
+      input!{ l:Usize1, r:Usize1 }
+      let mut res = 0;
+      for c in 0..26 {
+        if index[c].range(l..=r).next().is_some() {
+          dbg!(&index[c].range(l..=r), c);
+          res += 1;
+        }
+      }
+      println!("{}", res);
+    }
+  }
+}
