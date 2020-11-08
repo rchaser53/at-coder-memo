@@ -39,3 +39,41 @@ fn main() {
   }
   println!("{}", result);
 }
+
+#[fastout]
+fn main() {
+  input!{
+    n: usize,
+    vals: [Chars;n]
+  }
+  
+  let mut b_start_a_end = 0isize;
+  let mut b_start = 0isize;
+  let mut a_end = 0isize;
+  let mut result = 0;
+  for x in vals.iter() {
+    if x[x.len()-1] == 'A' && x[0] == 'B' {
+      b_start_a_end += 1;
+    } else if x[x.len()-1] == 'A' {
+      a_end += 1;
+    } else if x[0] == 'B' {
+      b_start += 1;
+    }
+    
+    for i in 0..x.len()-1 {
+      if x[i] == 'A' && x[i+1] == 'B' {
+        result += 1;
+      }
+    }
+  }
+  
+  if a_end == 0 && b_start == 0 && 0 < b_start_a_end {
+    result += b_start_a_end - 1;
+  } else {
+    result += std::cmp::min(
+      a_end + b_start_a_end,
+      b_start + b_start_a_end
+    );
+  }
+  println!("{}", result);
+}
