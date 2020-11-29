@@ -9,15 +9,33 @@ const MOD:usize = 1_000_000_007;
 
 fn main() {
   input!{
-    n: usize,
+    n: u128,
   }
   
-  let mut i = 1;
-  let mut total = 0;
-  loop {
-    total += i;
-    if n+1 < total { break }
-    i += 1;
+  if n <= 2 {
+    println!("1");
+    return
   }
-  println!("{}", n - (i - 1) + 1);
+  
+  let mut l = 1;
+  let mut r = n;
+  loop {
+    if r <= l+1 {
+      let v = r * (r + 1) / 2;      
+      if n + 1 < v {
+        println!("{}", n - l + 1);
+      } else {
+        println!("{}", n - r + 1);
+      }
+      return
+    }
+    
+    let middle = (l+r) / 2;
+    let v = middle * (middle + 1) / 2;
+    if n + 1 < v {
+      r = middle;
+    } else {
+      l = middle;
+    }
+  }
 }
