@@ -33,3 +33,44 @@ fn main() {
   
   println!("{}", min);
 }
+
+fn main() {
+  input!{
+    n: usize,
+    m: usize,
+    vals: [(Usize1, Usize1, usize);m]
+  }
+  
+  let mut memo = vec![vec![1_000_000;n];n];
+  for i in 0..m {
+    let (l, r, v) = vals[i];
+    memo[l][r] = v;
+    memo[r][l] = v;
+  }
+  
+  for i in 0..n {
+    memo[i][i] = 0;
+  }
+  
+  for i in 0..n {
+    for j in 0..n {
+      for k in 0..n {
+        memo[j][k] = std::cmp::min(
+          memo[j][k], memo[j][i] + memo[i][k]
+        );
+      }
+    }
+  }
+  
+  let mut min = 1_000_000_000;
+  for i in 0..n {
+    let mut max = 0;
+    for j in 0..n {
+      if i == j { continue }
+      max = std::cmp::max(max, memo[i][j]);
+    }
+    min = std::cmp::min(min, max);
+  }
+  
+  println!("{}", min);
+}
