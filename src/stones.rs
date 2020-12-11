@@ -1,5 +1,13 @@
-use proconio::input;
+#![allow(unused_imports)]
+use proconio::{input, fastout};
 use proconio::marker::*;
+use std::collections::*;
+use std::cmp::Ordering;
+use petgraph::unionfind::UnionFind;
+use petgraph::algo::dijkstra;
+use petgraph::graph::{NodeIndex, UnGraph};
+
+const MOD:usize = 1_000_000_007;
 
 fn main() {
   input!{
@@ -7,16 +15,15 @@ fn main() {
     k: usize,
     vals: [usize;n]
   }
-  let mut dp = vec![false;k+1];
-  for i in 1..=k {
+  
+  let mut dp = vec![false;k+vals[n-1]+1];
+  
+  for i in vals[0]-1..=k {
     for ii in 0..n {
-      let v = vals[ii];
-      if v <= i && !dp[i-v] {
-        dp[i] = true;
-      }
+      dp[i] |= vals[ii] <= i
+        && !dp[i-vals[ii]];
     }
   }
-
   if dp[k] {
     println!("First");
   } else {
