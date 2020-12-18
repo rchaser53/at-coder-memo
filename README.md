@@ -16,3 +16,6 @@
 - ref:
   - abc12d.rs
 
+## 点更新、区間取得
+### Fenwick tree (Binary indexed tree, BIT)
+- 
