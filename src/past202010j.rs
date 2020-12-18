@@ -100,3 +100,72 @@ fn dijkstra(
   }
   score
 }
+
+
+#![allow(unused_imports)]
+use proconio::{input, fastout};
+use proconio::marker::*;
+use std::collections::*;
+use std::cmp::Ordering;
+use maplit::{btreemap, btreeset, hashmap, hashset};
+use petgraph::unionfind::UnionFind;
+use petgraph::algo::dijkstra;
+use petgraph::graph::{NodeIndex, DiGraph, UnGraph};
+use permutohedron::{Heap, heap_recursive};
+
+const MOD:usize = 1_000_000_007;
+
+fn main() {
+  input!{
+    n: usize,
+    m: usize,
+    ab: usize,
+    ac: usize,
+    bc: usize,
+    s: Chars,
+    mut vals: [(Usize1, Usize1, usize);m]
+  }
+  
+  let ain = n;
+  let bin = n+1;
+  let cin = n+2;
+  let aout = n+3;
+  let bout = n+4;
+  let cout = n+5;
+  
+  for i in 0..m {
+    let (from, to, v) = vals[i];
+    vals.push((to, from, v));
+  }
+  
+  for i in 0..n {
+    match s[i] {
+      'A' => {
+        vals.push((i, ain, 0));
+        vals.push((aout, i, 0));
+      },
+      'B' => {
+        vals.push((i, bin, 0));
+        vals.push((bout, i, 0));
+      },
+      _ => {
+        vals.push((i, cin, 0));
+        vals.push((cout, i, 0));
+      }
+    }
+  }
+  
+  // Ain:0  Bin:1  Cin:2
+  // Aout:3 Bout:4 Cout:5
+  vals.push((ain, bout, ab)); // A => B
+  vals.push((ain, cout, ac)); // A => C
+  vals.push((bin, aout, ab)); // B => A
+  vals.push((bin, cout, bc)); // B => C
+  vals.push((cin, aout, ac)); // C => A
+  vals.push((cin, bout, bc)); // C => B
+  
+  let g = DiGraph::<usize, usize, usize>::from_edges(&vals);
+  let res = dijkstra(&g, 0.into(), Some((n-1).into()), |e| *e.weight());
+  let v = res.get(&NodeIndex::new(n-1)).unwrap();
+  println!("{}", v);
+}
