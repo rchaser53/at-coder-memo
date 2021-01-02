@@ -1,31 +1,25 @@
 #![allow(unused_imports)]
-use proconio::input;
+use proconio::{input, fastout};
 use proconio::marker::*;
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet, VecDeque};
 
+#[fastout]
 fn main() {
-  input! {
-    a: usize,
-    b: usize,
-    c: usize,
+  input!{
+    mut vals: [usize;3]
   }
+  vals.sort();
   
-  let mut memo = vec![a,b,c];
-  memo.sort();
-  let a = memo[0];
-  let b = memo[1];
-  let c = memo[2];
+  let a = vals[2] - vals[1];
+  let b = vals[2] - vals[0];
   
-  let cb = (c - b) % 2;
-  let ca = (c - a) % 2;
-  
-  if cb == 0 && ca == 0 {
-    println!("{}", (c - b) / 2 + (c - a) / 2);
-  } else if (cb == 1 && ca == 0) || cb == 0 && ca == 1 {
-    let v = (b - (a + 1)) / 2;
-    let vv = c + 1 - b;
-    println!("{}", 1 + v + vv);
+  if a % 2 == b % 2 {
+    println!("{}", (a + b) / 2);
+  } else if a % 2 == 1 {
+    let a = (vals[2] + 1 - vals[1]) / 2;
+    println!("{}", a + (b / 2) + 1);
   } else {
-    println!("{}", 1 + ((c - b) / 2) + ((c - a) / 2));
+    let b = (vals[2] + 1 - vals[0]) / 2;
+    println!("{}", (a / 2) + b + 1);
   }
 }
