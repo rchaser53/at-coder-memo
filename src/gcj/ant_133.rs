@@ -1,4 +1,5 @@
 // 平均最大化
+// ref: https://github.com/rchaser53/at-corder-memo/blob/master/src/past201912m.rs
 
 fn check(
   vals: &Vec<f64>,
