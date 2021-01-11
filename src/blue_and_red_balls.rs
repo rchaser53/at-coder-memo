@@ -1,6 +1,7 @@
 use proconio::input;
 
 const MOD: usize = 1_000_000_007;
+// nCkを作るやつ
 fn create_pascal() -> Vec<Vec<usize>> {
   let n = 2000;
   let mut result: Vec<Vec<usize>> = vec![vec![0;n+1];n+1];
