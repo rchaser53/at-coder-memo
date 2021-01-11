@@ -12,6 +12,7 @@ use std::cmp::*;
 
 const MOD:usize = 1_000_000_007;
 
+#[fastout]
 fn main() {
   input!{
     n: usize,
@@ -22,15 +23,16 @@ fn main() {
     routes: [(Usize1, Usize1);m]
   }
   
-  let mut groups = vec![vec![];n];
-  for (mut a, mut b) in routes {
-    if heights[a] < heights[b] {
-      groups[a].push(b);
+  let mut neighbors = vec![vec![];n];
+  for (a, b) in routes {
+    if heights[a] > heights[b] {
+      neighbors[b].push(a);
     } else {
-      groups[b].push(a);
+      neighbors[a].push(b);
     }
   }
-  let inf = 100_000_000;
+  
+  let inf = 1_000_000_000;
   let mut dp = vec![inf;n];
   let mut que = VecDeque::new();
   for goal in goals {
@@ -38,21 +40,23 @@ fn main() {
     que.push_back(goal);
   }
   
-  while let Some(v) = que.pop_front() {
-    let d = dp[v] + 1;
-    for &u in groups[v].iter() {
-      if d < dp[u] {
-        dp[u] = d;
-        que.push_back(u);
+  while !que.is_empty() {
+    let i = que.pop_front().unwrap();
+    for ii in 0..neighbors[i].len() {
+      let ti = neighbors[i][ii];
+      let nv  = dp[i] + 1;
+      if nv < dp[ti] {
+        dp[ti] = nv;
+        que.push_back(ti);
       }
     }
   }
   
-  for d in dp {
-    if d == inf {
+  for v in dp {
+    if v == inf {
       println!("-1");
     } else {
-      println!("{}", d);
+      println!("{}", v);
     }
-  } 
+  }
 }
