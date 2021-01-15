@@ -35,5 +35,8 @@ fn main() {
     m: usize,
   }
   
-  println!("{}", pow(10, n, m*m) / m % m);
+  // 何桁目まで求めたいか
+  // この問題の場合、mで割った後にmの余りを求めれば良いからm^2
+  let digit = 2u32;
+  println!("{}", pow(10, n, m.pow(digit) / m % m);
 }
