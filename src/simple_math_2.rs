@@ -12,7 +12,8 @@ use std::cmp::*;
 
 const MOD:usize = 1_000_000_007;
 
-fn culc(
+// m進数を求めるのに使える
+fn pow(
   mut x: usize,
   mut n: usize,
   m: usize
@@ -34,5 +35,5 @@ fn main() {
     m: usize,
   }
   
-  println!("{}", culc(10, n, m*m) / m % m);
+  println!("{}", pow(10, n, m*m) / m % m);
 }
