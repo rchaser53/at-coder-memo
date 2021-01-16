@@ -11,69 +11,57 @@ fn main() {
     n: usize,
     vals: [Chars;n]
   }
+  let mut x_a = vec![];
+  let mut b_a = vec![];
+  let mut b_x = vec![];
+  let mut x_x = vec![];
   
-  let mut b_start = vec![];
-  let mut a_end = vec![];
+  for v in vals {
+    if v[0] == 'B' && v[v.len()-1] == 'A' {
+      b_a.push(v);
+    } else if v[0] == 'B' {
+      b_x.push(v);
+    } else if v[v.len()-1] == 'A' {
+      x_a.push(v);
+    } else {
+      x_x.push(v);
+    }
+  }
+  
+  let mut que = VecDeque::new();
+  
+  while let Some(v) = b_a.pop() {
+    que.push_back(v);
+  }
+  if let Some(v) = x_a.pop() {
+    que.push_front(v);
+  }
+  if let Some(v) = b_x.pop() {
+    que.push_back(v);
+  }
+  
+  while !x_a.is_empty() || !b_x.is_empty() {
+    if let Some(v) = x_a.pop() {
+      que.push_back(v);
+    }
+    if let Some(v) = b_x.pop() {
+      que.push_back(v);
+    }
+  }
+  while let Some(v) = x_x.pop() {
+    que.push_back(v);
+  }
+  
+  let mut last = 'a';
   let mut result = 0;
-  for x in vals.iter() {
-    if x[x.len()-1] == 'A' {
-      a_end.push(x);
-    }
-    if x[0] == 'B' {
-      b_start.push(x);
-    }
-    
-    for i in 0..x.len()-1 {
-      if x[i] == 'A' && x[i+1] == 'B' {
+  while let Some(arr) = que.pop_front() {
+    for c in arr {
+      if last == 'A' && c == 'B' {
         result += 1;
       }
+      last = c;
     }
   }
   
-  if a_end.len() == b_start.len()
-    && a_end == b_start
-    && 0 < a_end.len() {
-    result += a_end.len() - 1;
-  } else {
-    result += std::cmp::min(a_end.len(), b_start.len());
-  }
-  println!("{}", result);
-}
-
-#[fastout]
-fn main() {
-  input!{
-    n: usize,
-    vals: [Chars;n]
-  }
-  
-  let mut b_start_a_end = 0isize;
-  let mut b_start = 0isize;
-  let mut a_end = 0isize;
-  let mut result = 0;
-  for x in vals.iter() {
-    if x[x.len()-1] == 'A' && x[0] == 'B' {
-      b_start_a_end += 1;
-    } else if x[x.len()-1] == 'A' {
-      a_end += 1;
-    } else if x[0] == 'B' {
-      b_start += 1;
-    }
-    
-    for i in 0..x.len()-1 {
-      if x[i] == 'A' && x[i+1] == 'B' {
-        result += 1;
-      }
-    }
-  }
-  
-  if a_end == 0 && b_start == 0 && 0 < b_start_a_end {
-    result += b_start_a_end - 1;
-  } else {
-    result += std::cmp::min(
-      a_end + b_start_a_end,
-      b_start + b_start_a_end
-    );
-  }
   println!("{}", result);
 }
