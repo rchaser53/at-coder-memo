@@ -33,3 +33,36 @@ fn main() {
     println!("{}", val);
   }
 }
+
+#[fastout]
+fn my_answer() {
+  input! {
+    n: usize,
+    m: usize,
+    q: usize,
+    trains: [(Usize1,Usize1);m],
+    queries: [(Usize1,Usize1);q]
+  }
+  
+  let mut memo = vec![vec![0;n];n];
+  
+  for (from, to) in trains {
+    memo[from][to] += 1;
+  }
+  
+  for i in (0..n).rev() {
+    for ii in 0..n-1 {
+      memo[i][ii+1] += memo[i][ii];
+    }
+  }
+  
+  for i in (1..n).rev() {
+    for ii in 0..n {
+      memo[i-1][ii] += memo[i][ii];
+    }
+  }
+ 
+  for (from, to) in queries {
+    println!("{}", memo[from][to]);
+  }
+}
