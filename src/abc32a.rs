@@ -5,6 +5,7 @@ use std::collections::*;
 use std::cmp::Ordering;
 use petgraph::unionfind::UnionFind;
 
+// 最大公約数
 fn gcv(a: usize, b: usize) -> usize { 
   if b == 0 {
     a
@@ -13,6 +14,7 @@ fn gcv(a: usize, b: usize) -> usize {
   }
 }
 
+// 最小公倍数
 fn lcm(a:usize, b:usize) -> usize {
   a * b / gcv(a, b)
 }

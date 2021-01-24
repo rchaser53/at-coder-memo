@@ -23,6 +23,7 @@ fn mod_inv(a:usize) -> usize {
   mod_pow(a, MOD-2)
 }
 
+// 素因数分解
 fn prime_factorization(mut a:usize, primes:&[usize]) -> HashMap<usize, usize> {
   let mut factors = HashMap::new();
   for &prime in primes {
