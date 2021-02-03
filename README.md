@@ -25,3 +25,7 @@
   - 特定区間の値の和の取得
 - ref: https://github.com/rchaser53/at-corder-memo/blob/master/src/range_xor_query.rs
 
+- 備考
+  - 転倒数を求めるのに使える
+  - その場合1-indexedで実装した方が楽
+  - ref: https://github.com/rchaser53/at-corder-memo/commit/d32b7913eddf25605c312fe8bb7d57fad2b88a34
