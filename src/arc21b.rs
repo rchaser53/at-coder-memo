@@ -19,16 +19,16 @@ fn main() {
     vals:[usize;n]
   }
   
-  let mut result = vec![0];
+  let mut result = vec![0;n];
   for i in 1..n {
-    result.push(result[i-1] ^ vals[i-1]);
+    result[i] = vals[i-1] ^ result[i-1];
   }
   
-  if result[n-1] == vals[n-1] {
+  if result[0] ^ result[n-1] != vals[n-1] {
+    println!("-1");
+  } else {
     for v in result {
       println!("{}", v);
     }
-  } else {
-    println!("-1");
   }  
 }
