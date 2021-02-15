@@ -25,19 +25,20 @@ fn main() {
   for i in 0..h {
     for ii in 0..w {
       let mut v = rows[i][ii];
-      if (i+ii) % 2 == 1 {
+      if (i+ii) % 2 == 0 {
         v *= -1;
       }
-      let temp = memo[i][ii+1] + memo[i+1][ii] - memo[i][ii] + v;
-      memo[i+1][ii+1] = temp;
-      for iii in 0..=i {
-        for iiii in 0..=ii {
-          if temp - memo[i+1][iiii] - memo[iii][ii+1] + memo[iii][iiii] == 0 {
-            max = std::cmp::max(max, (i-iii+1) * (ii-iiii+1));
+      memo[i+1][ii+1] = v + memo[i+1][ii] + memo[i][ii+1] - memo[i][ii];
+      
+      for r in 0..=i {
+        for c in 0..=ii {
+          let v = memo[i+1][ii+1] + memo[r][c] - memo[i+1][c] - memo[r][ii+1];
+          if v == 0 {
+            max = std::cmp::max(max, (i-r+1) * (ii-c+1));
           }
         }
-      }         
+      }
     }
-  }   
+  }
   println!("{}", max);
 }
