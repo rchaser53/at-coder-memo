@@ -13,6 +13,32 @@ use superslice::Ext;
 const MOD:usize = 1_000_000_007;
 const MAX: usize = 1000;
 
+fn main() {
+  input!{
+    n: usize,
+    k: usize
+  }
+  
+  let mut fact:Vec<usize> = vec![0;MAX];
+  let mut finv:Vec<usize> = vec![0;MAX];
+  let mut inv:Vec<usize> = vec![0;MAX];
+  
+  init(&mut fact, &mut finv, &mut inv);
+  
+  if k < n {
+    println!("{}", com(&fact, &finv, n+k-1, n-1));
+  } else if k == n {
+    println!("1");
+  } else {
+    let red = k % n;
+    if red == 0 {
+      println!("1");
+    } else {
+      println!("{}", com(&fact, &finv, n, red));
+    }
+  }
+}
+
 fn init(
   fact: &mut Vec<usize>,
   finv: &mut Vec<usize>,
@@ -44,31 +70,5 @@ fn com(
     0
   } else {
     fact[n] * (finv[k] * finv[n-k] % MOD) % MOD
-  }
-}
-
-fn main() {
-  input!{
-    n: usize,
-    k: usize
-  }
-  
-  let mut fact:Vec<usize> = vec![0;MAX];
-  let mut finv:Vec<usize> = vec![0;MAX];
-  let mut inv:Vec<usize> = vec![0;MAX];
-  
-  init(&mut fact, &mut finv, &mut inv);
-  
-  if k < n {
-    println!("{}", com(&fact, &finv, n+k-1, n-1));
-  } else if k == n {
-    println!("1");
-  } else {
-    let red = k % n;
-    if red == 0 {
-      println!("1");
-    } else {
-      println!("{}", com(&fact, &finv, n, red));
-    }
   }
 }
