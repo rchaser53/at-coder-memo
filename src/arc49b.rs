@@ -13,34 +13,6 @@ use num::Num;
 
 const MOD:usize = 1_000_000_007;
 
-#[allow(dead_code)]
-fn lower_bound<T, F>(mut begin: T, mut end: T, epsilon: T, f: F) -> T
-where
-  T: std::marker::Copy
-    + std::ops::Add<T, Output = T>
-    + std::ops::Sub<T, Output = T>
-    + std::ops::Div<T, Output = T>
-    + std::cmp::PartialOrd<T>
-    + std::convert::TryFrom<i32>,
-  F: Fn(T) -> std::cmp::Ordering,
-{
-  let two = T::try_from(2).ok().unwrap();
-  while end - begin >= epsilon {
-    let mid = begin + (end - begin) / two;
-
-    match f(mid) {
-      Ordering::Less => {
-        begin = mid + epsilon;
-      }
-      _ => {
-        end = mid;
-      }
-    }
-  }
-
-  begin
-}
-
 fn main() {
   input!{
     n: usize,
@@ -68,4 +40,32 @@ fn main() {
   });
   
   println!("{}", result);
+}
+
+#[allow(dead_code)]
+fn lower_bound<T, F>(mut begin: T, mut end: T, epsilon: T, f: F) -> T
+where
+  T: std::marker::Copy
+    + std::ops::Add<T, Output = T>
+    + std::ops::Sub<T, Output = T>
+    + std::ops::Div<T, Output = T>
+    + std::cmp::PartialOrd<T>
+    + std::convert::TryFrom<i32>,
+  F: Fn(T) -> std::cmp::Ordering,
+{
+  let two = T::try_from(2).ok().unwrap();
+  while end - begin >= epsilon {
+    let mid = begin + (end - begin) / two;
+
+    match f(mid) {
+      std::cmp::Ordering::Less => {
+        begin = mid + epsilon;
+      }
+      _ => {
+        end = mid;
+      }
+    }
+  }
+
+  begin
 }
