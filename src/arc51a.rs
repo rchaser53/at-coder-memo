@@ -11,6 +11,7 @@ use num::Num;
 
 const MOD:usize = 1_000_000_007;
 
+// 垂線引くやつ
 fn culc1(
   a: &(f64, f64),
   b: &(f64, f64),
@@ -21,7 +22,6 @@ fn culc1(
   let ac = (c.0 - a.0, c.1 - a.1);
   let k = (ab.0 * ac.0 + ab.1 * ac.1) / (ab.0.powi(2) + ab.1.powi(2));
   let len = (k * ab.0 - ac.0).powi(2) + (k * ab.1 - ac.1).powi(2);
-//  dbg!(len);
   r <= len
 }
 
@@ -31,7 +31,6 @@ fn culc2(
   r: f64
 ) -> bool {
   let len = (b.0 - a.0).powi(2) + (b.1 - a.1).powi(2);
-//  dbg!(len);
   len <= r
 }
 
