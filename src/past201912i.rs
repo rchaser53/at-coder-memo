@@ -48,3 +48,37 @@ fn main() {
     println!("{}", dp[limit-1]);
   }
 }
+
+fn main() {
+  input!{
+    n: usize,
+    m: usize,
+    vals: [(Chars,usize);m]
+  }
+ 
+  let limit = 2usize.pow(n as u32+1);
+  let inf = 1_000_000_000_000_000;
+  let mut dp = vec![inf;limit];
+  dp[0] = 0usize;
+  for (s, val) in vals {
+    let mut temp = 0usize;
+    for i in 0..n {
+      if s[i] == 'Y' {
+        temp += 1 << i;
+      }
+    }
+    for i in 0..limit {
+      dp[i | temp] = std::cmp::min(dp[i] + val, dp[i | temp]); 
+    }
+  }
+  
+  let mut result = inf;
+  for i in 2usize.pow(n as u32)-1..limit {
+    result = std::cmp::min(result, dp[i]);
+  }
+  if result == inf {
+    println!("-1");
+  } else {
+    println!("{}", result);
+  }  
+}
