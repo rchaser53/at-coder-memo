@@ -12,6 +12,7 @@ use superslice::Ext;
  
 const MOD:usize = 998244353;
  
+// n^pを計算するやつ
 fn repeat_square(n:usize, p:usize) -> usize {
   if p == 0 {
     1
