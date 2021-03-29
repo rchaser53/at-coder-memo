@@ -7,10 +7,11 @@ use petgraph::unionfind::UnionFind;
 use petgraph::algo::dijkstra;
 use petgraph::graph::{NodeIndex, DiGraph, UnGraph};
 use permutohedron::{Heap, heap_recursive};
-use std::collections::*;
 use superslice::*;
-use std::cmp::Ordering;
 use num_complex::Complex;
+use nalgebra::{Rotation2, Vector2};
+use std::collections::*;
+use std::cmp::Ordering;
 
 const MOD:usize = 1_000_000_007;
 const MAX: usize = 1000;
@@ -63,4 +64,21 @@ fn answer2() {
   let ox1 = ox0 * theta.cos() - oy0 * theta.sin();
   let oy1 = ox0 * theta.sin() + oy0 * theta.cos();
   println!("{} {}", ox1 + xo, oy1 + yo);
+}
+
+fn answer3() {
+  input!{
+    n:f64,
+    x0:f64,
+    y0:f64,
+    x2:f64,
+    y2:f64
+  }
+  let p0 = Vector2::new(x0, y0);
+  let p2 = Vector2::new(x2, y2);
+  let po = (p0 + p2) / 2f64;
+  let o0 = p0 - po;
+  let v = Rotation2::new(2f64 * std::f64::consts::PI / n) * o0;
+  let result = v + po;
+  println!("{} {}", result.x, result.y);
 }
