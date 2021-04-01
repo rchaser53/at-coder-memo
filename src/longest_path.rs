@@ -1,44 +1,46 @@
+#![allow(unused_imports)]
 use proconio::input;
 use proconio::marker::*;
+use std::collections::*;
 
-fn helper(
-  list: &Vec<Vec<usize>>,
-  dp: &mut Vec<usize>,
-  seen: &mut Vec<bool>,
-  v: usize
-) -> usize {
-  if seen[v] {
-    return dp[v];
-  }
-  seen[v] = true;
-  let mut fans = 0;
-  for &to in list[v].iter() {
-    let vv = helper(list, dp, seen, to) + 1;
-    fans = std::cmp::max(fans, vv);
-  }
-  dp[v] = fans;
-  fans
+struct Helper {
+  dp: Vec<isize>,
+  memo: Vec<Vec<usize>>
 }
 
+impl Helper {
+  fn culc(&mut self, ci:usize) -> isize {
+    if 0 < self.dp[ci] {
+      return self.dp[ci]
+    }
+    
+    self.dp[ci] = 0;
+    let mut temp = 0;
+    for i in 0..self.memo[ci].len() {
+      let v = self.culc(self.memo[ci][i]) + 1;
+      temp = std::cmp::max(temp, v);
+    }
+    self.dp[ci] = std::cmp::max(self.dp[ci], temp);
+    temp
+  }
+}
+
+const MOD:usize = 1_000_000_007;
 fn main() {
   input!{
-    n: usize,
-    m: usize,
-    vals: [(Usize1, Usize1);m]
+    n:usize,
+    m:usize,
+    vals:[(Usize1,Usize1);m]
   }
   
-  let mut dp = vec![0;n+1];
-  let mut seen = vec![false;n];
-  let mut list = vec![vec![];n];
+  let mut memo = vec![vec![];n];
   for (from, to) in vals {
-    list[from].push(to);
+    memo[from].push(to);
   }
+  let mut helper = Helper { memo, dp:vec![-1;n] }; 
   
-  let mut result = 0;
   for i in 0..n {
-    let v = helper(&list, &mut dp, &mut seen, i);
-    result = std::cmp::max(result, v);
+    helper.culc(i);
   }
-  
-  println!("{}", result);
+  println!("{}", helper.dp.into_iter().max().unwrap());
 }
