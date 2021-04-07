@@ -6,6 +6,7 @@
 - arc43b.rs
 - arc51a.rs
 - arc113d.rs
+- abc16d.rs
 - abc32a.rs
 - abc197d.rs
   - 複素数使って、角度と距離を変えるやつ
