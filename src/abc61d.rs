@@ -29,13 +29,12 @@ fn main() {
   let mut negative = false;
   memo[0] = 0;
   
-  for i in 0..=n*2 {
+  for i in 0..=n {
     for ii in 0..n {
-      if inf/2 <= memo[ii] { continue }
       for e in &neighbors[ii] {
         if memo[ii] + e.1 < memo[e.0] {
           memo[e.0] = memo[ii] + e.1;
-          if e.0 == n-1 && i == n * 2 {
+          if e.0 == n-1 && i == n {
             negative = true;
           } 
         }
