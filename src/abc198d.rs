@@ -12,6 +12,7 @@ use std::collections::*;
 const MOD:usize = 1_000_000_007;
 const MAX: usize = 1000;
 
+// permutation
 // iterを使うと要素を並び替えてくれるやつ
 // Noneになるまでnext_permutationを使えば全部の順序で試せる
 // supersliceと競合するので注意
