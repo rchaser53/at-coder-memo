@@ -1,4 +1,5 @@
 use proconio::input;
+use proconio::marker::*;
 
 fn main() {
   input! {
@@ -32,4 +33,31 @@ fn main() {
   } else {
     println!("{}", b_count);
   }
+}
+
+fn sol2() {
+  input! {
+    s:Chars
+  }
+  let n = s.len();
+  let mut dp = vec![vec![0;2];n];
+  
+  if s[0] == '0' {
+    dp[0][1] = 1;
+  } else {
+    dp[0][0] = 1;
+  }
+
+  let mut last = s[0];
+  for i in 1..s.len() {
+    if s[i] == '0' {
+      dp[i][1] = dp[i-1][0]+1;
+      dp[i][0] = dp[i-1][1];
+    } else {
+      dp[i][1] = dp[i-1][0];
+      dp[i][0] = dp[i-1][1]+1;
+    }
+  }
+  
+  println!("{}", std::cmp::min(dp[n-1][0], dp[n-1][1]));
 }
