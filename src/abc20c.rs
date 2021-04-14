@@ -102,3 +102,51 @@ fn main() {
   
   println!("{}", left);
 }
+
+fn p2() {
+  input! {
+    n:usize,
+    k:isize,
+    mut vals:[isize;n]
+  }
+  vals.sort();
+  let total = vals.iter().sum::<isize>();
+  let mut set = HashSet::new();
+  let mut i = 1;
+  while i * i <= total {
+    if total % i == 0 {
+      set.insert(i);
+      set.insert(total/i);
+    }
+    i += 1;
+  }
+  set.remove(&1);
+ 
+  let mut max = 1;
+  for tv in set {
+    let mut temps = vals
+      .iter()
+      .map(|v| v % tv)
+      .collect::<Vec<isize>>();
+    temps.sort();
+    
+    let mut rs = 0;
+    for i in 0..n {
+      rs += tv - temps[i];
+    }
+    let mut ls = 0;
+    let mut min = rs;
+    
+    for i in 0..n {
+      rs -= tv - temps[i];
+      ls += temps[i];
+      min = std::cmp::min(min, std::cmp::max(ls, rs));
+    }
+    
+    if min <= k {
+      max = std::cmp::max(max, tv);
+    }
+  }
+  
+  println!("{}", max);
+}
