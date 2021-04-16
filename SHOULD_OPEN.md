@@ -8,8 +8,8 @@
 - arc113d.rs
 - abc16d.rs
 - abc32a.rs
+- abc73d.rs
 - abc197d.rs
-- abc198d.rs
   - 複素数使って、角度と距離を変えるやつ
 
 # 使いたいコピペ
@@ -21,6 +21,6 @@
 - prime_factorization // 素因数分解
 - upper_bound
 - Fenwick
-- permutation
+- heap_recursive
 - ベクトル
   - 垂線引くやつ
