@@ -12,3 +12,10 @@ fn main() {
 
   println!("{}", result); 
 }
+
+fn main() {
+  proconio::input!{
+    n: usize,
+  }
+  println!("{}", (n-1) * n / 2);
+}
