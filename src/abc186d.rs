@@ -33,3 +33,18 @@ fn main() {
   }
   println!("{}", result);
 }
+
+fn main() {
+  input!{
+    n:usize,
+    mut vals:[isize;n]
+  }
+  vals.sort();
+  let mut temp = 0;
+  let mut result = 0;
+  for i in 1..n {
+    temp += vals[i-1];
+    result += vals[i] * i as isize - temp;
+  }
+  println!("{}", result);
+}
