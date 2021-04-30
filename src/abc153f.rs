@@ -8,23 +8,43 @@ use petgraph::algo::dijkstra;
 use petgraph::graph::{NodeIndex, DiGraph, UnGraph};
 use permutohedron::{Heap, heap_recursive};
 use std::collections::*;
-use std::cmp::*;
 
-fn upper_bound(arr:&Vec<(usize,isize)>, x: &usize) -> usize {
+// NEEDS TO EDIT
+type Target = (usize,isize);
+type UseValue = usize;
+fn upper_bound(arr:&Vec<Target>, x: &UseValue) -> usize {
   let mut low = 0;
   let mut high = arr.len();
   while low != high {
     let mid = (low + high) / 2;
+    // NEEDS TO EDIT
     match arr[mid].0.cmp(x) {
-      Ordering::Less | Ordering::Equal => {
+      std::cmp::Ordering::Less | std::cmp::Ordering::Equal => {
         low = mid + 1;
       }
-      Ordering::Greater => {
+      std::cmp::Ordering::Greater => {
         high = mid;
       }
     }
   }
-  
+  low
+}
+
+fn lower_bound(arr:&Vec<Target>, x: &UseValue) -> usize {
+  let mut low = 0;
+  let mut high = arr.len();
+  while low != high {
+    let mid = (low + high) / 2;
+    // NEEDS TO EDIT
+    match arr[mid].0.cmp(x) {
+      std::cmp::Ordering::Less => {
+        low = mid + 1;
+      }
+      std::cmp::Ordering::Equal | std::cmp::Ordering::Greater => {
+        high = mid;
+      }
+    }
+  }
   low
 }
 
