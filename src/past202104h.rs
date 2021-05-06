@@ -17,34 +17,33 @@ pub fn main(
       vals:[(usize,usize);n]
     }
 
-    let mut free = vec![];
-    let mut needs = vec![];
+    let mut abs = vec![vec![];2];
+    for (v,t) in vals {
+      abs[t].push(v);
+    }
 
-    for (v, t) in vals {
-      if t == 1 {
-        needs.push(v);
-      } else {
-        free.push(v);
-      }
+    abs[0].sort();
+    let mut memo_a = vec![0;abs[0].len()+1];
+    for i in 0..abs[0].len() {
+      memo_a[i+1] = memo_a[i] + abs[0][i];
     }
-    free.sort();
-    needs.sort();
 
-    let mut free_memo = vec![0;free.len()+1];
-    for i in 0..free.len() {
-      free_memo[i+1] += free_memo[i] + free[i];
+    abs[1].sort();
+    let mut memo_b = vec![0;abs[1].len()+1];
+    for i in 0..abs[1].len() {
+      memo_b[i+1] = memo_b[i] + abs[1][i];
     }
-    let mut needs_memo = vec![0;needs.len()+1];
-    for i in 0..needs.len() {
-      needs_memo[i+1] += needs_memo[i] + needs[i];
-    }
+
     let mut min = std::usize::MAX;
     for i in 0..=m {
       let j = m - i;
-      if free_memo.len() <= i || needs_memo.len() <= j { continue }
-      let v = free_memo[i] + needs_memo[j] + (j+k-1) / k * q;
+      if memo_a.len() <= i || memo_b.len() <= j { continue }
+      let mut num = j / k;
+      if j % k != 0 {
+        num += 1;
+      }
+      let v = memo_a[i] + memo_b[j] + num * q;
       min = std::cmp::min(min, v);
     }
-    
     println!("{}", min);
 }
