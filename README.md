@@ -39,6 +39,15 @@
   - abc190f.rs (転倒数)
     - https://scrapbox.io/pocala-kyopro/%E8%BB%A2%E5%80%92%E6%95%B0  
 
+# 有効グラフ、ループのグループ取得
+### 強連結成分分解
+強連結成分(SCC: Strongly Connected Component)を求めること
+
+- できること
+  - 有向グラフでループを作っているグループを取得できる
+
+- ref:
+  - others/typical90_21.rs
 
 arc39b.rs
 arc39b.rsのinvの解説
