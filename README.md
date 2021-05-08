@@ -22,24 +22,28 @@
 
 ## 点更新、区間取得
 ### Fenwick tree (Binary indexed tree, BIT)
+**セグメントツリーを使った方が無難そう**
 - できること
   - 要素の追加
   - 特定区間の値の更新
   - 特定区間の値の和の取得
-- ref: https://github.com/rchaser53/at-corder-memo/blob/master/src/range_xor_query.rs
 
 - 備考
-  - 転倒数を求めるのに使える
-  - その場合1-indexedで実装した方が楽
-  - ref: https://github.com/rchaser53/at-corder-memo/commit/d32b7913eddf25605c312fe8bb7d57fad2b88a34
+  - SegmentTreeよりも使用メモリ量が少なく、実装が楽、その分できないこともある
+    - 0番目からx番目までの区間和などが求められるので、累積和のノリで区間和は求められる
+      - つまり最大値、最小値とかは駄目なはず
+      - セグメント木コピペすれば良いから別に使う必要ないのでは…？
+  
+- ref(セグメント木でrewrite済み)
+  - abc185f.rs
+  - abc190f.rs (転倒数)
+    - https://scrapbox.io/pocala-kyopro/%E8%BB%A2%E5%80%92%E6%95%B0  
 
-https://scrapbox.io/pocala-kyopro/%E8%BB%A2%E5%80%92%E6%95%B0
 
 arc39b.rs
 arc39b.rsのinvの解説
 - https://drken1215.hatenablog.com/entry/2018/06/08/210000
 - https://qiita.com/drken/items/3b4fdf0a78e7a138cd9a
-
 
 
 #### abc193e.rs
