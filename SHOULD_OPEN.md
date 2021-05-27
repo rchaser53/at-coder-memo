@@ -24,3 +24,11 @@
 - heap_recursive
 - ベクトル
   - 垂線引くやつ
+
+
+- 強連結成分
+  - typical90_21.rs
+- オイラーツアー
+  - abc202e.rs
+- セグメントツリー
+  - SegmentTree
