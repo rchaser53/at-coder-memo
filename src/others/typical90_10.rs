@@ -1,5 +1,6 @@
+/* OUTPUT FILE */
 #![allow(unused_imports)]
-use proconio::{input, fastout};
+use proconio::{input};
 use proconio::marker::*;
 use itertools::Itertools;
 use maplit::{btreemap, btreeset, hashmap, hashset};
@@ -15,8 +16,9 @@ use num_complex::Complex;
 const MOD:usize = 998244353;
 const MAX:usize = 400010;
 
-fn main() {
-  input!{
+pub fn main(
+) {
+input! {
     n:usize,
     vals:[(Usize1,usize);n],
     q:usize,
