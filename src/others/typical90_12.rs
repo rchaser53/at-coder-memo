@@ -1,5 +1,5 @@
 #![allow(unused_imports)]
-use proconio::{input, fastout};
+use proconio::{input};
 use proconio::marker::*;
 use itertools::Itertools;
 use maplit::{btreemap, btreeset, hashmap, hashset};
@@ -12,14 +12,14 @@ use std::collections::*;
 const MOD:usize = 1_000_000_007;
 const MAX: usize = 1000;
 
-#[fastout]
-fn main() {
-  input!{
+pub fn main(
+) {
+  input! {
     h:usize,
     w:usize,
     q:usize,
   }
-  
+
   let mut rows = vec![vec![false;w];h];
   let n = h * w;
   let mut tree: UnionFind<usize> = UnionFind::new(n);
@@ -30,7 +30,7 @@ fn main() {
     
     if t == 1 {
       input!{
-        x:Usize1, y:Usize1
+        y:Usize1, x:Usize1,
       }
       rows[y][x] = true;
       let i = y * w + x;
@@ -49,8 +49,8 @@ fn main() {
       
     } else {
       input!{
-        x1:Usize1, y1:Usize1,
-        x2:Usize1, y2:Usize1
+        y1:Usize1, x1:Usize1, 
+        y2:Usize1, x2:Usize1, 
       }
       let ti1 = y1 * w + x1;
       let ti2 = y2 * w + x2;
