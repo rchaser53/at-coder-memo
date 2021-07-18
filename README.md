@@ -55,6 +55,13 @@ arc39b.rsのinvの解説
 - https://qiita.com/drken/items/3b4fdf0a78e7a138cd9a
 
 
+# 最大フロー/最小カット
+- 対象のnodeまでのedgeを切断したい
+  - フローのcapacityを1にして、対象から唯1つのnodeを引くことで最小カットが使える
+  - 最小カットは最大フローになる
+  - Ford fulkersonが使える
+  - abc10d.rs
+
 #### abc193e.rs
 特定のスパンで状態が変化する。(PとQ, XとY)
 最短で重複するのはいつか？重複しない場合もある
