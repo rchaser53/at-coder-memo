@@ -5,6 +5,7 @@
   - arc32b.rs
 - arc51a.rs
 - arc113d.rs
+- abc14d.rs
 - abc16d.rs
 - abc32a.rs
 - abc73d.rs
@@ -16,6 +17,7 @@
 - repeat_square
 - gcv
 - lcm
+- lca // lowest common ancestor
 - com
 - mod_inv
 - prime_factorization // 素因数分解
