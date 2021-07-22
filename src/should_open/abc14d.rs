@@ -36,9 +36,9 @@ impl LCA {
   ) {
     self.dfs(root, self.default_value, 0);
     let k = self.parent.len();
-    let v = self.graph.len();
+    let n = self.graph.len();
     for i in 0..k-1 {
-      for j in 0..v {
+      for j in 0..n {
         if self.parent[i][j] == self.default_value {
           self.parent[i+1][j] = self.default_value;
         } else {
@@ -70,7 +70,8 @@ impl LCA {
         u = self.parent[i][u];
       }
     }
-    // 二分探索でLCAを求める
+    // LCAを求める
+    // 二分探索でもできる様子(そっちの方が早いと思われる)
     if u == v { return u }
     for i in (0..k).rev() {
       if self.parent[i][u] != self.parent[i][v] {
