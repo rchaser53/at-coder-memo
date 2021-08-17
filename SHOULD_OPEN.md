@@ -12,6 +12,7 @@
 - abc153f.rs
 - abc197d.rs
   - 複素数使って、角度と距離を変えるやつ
+- abc214d.rs
 
 # 使いたいコピペ
 - repeat_square
@@ -26,7 +27,7 @@
 - heap_recursive
 - ベクトル
   - 垂線引くやつ
-
+- union_find(sizeが使えるやつ)
 
 - 強連結成分
   - typical90_21.rs
