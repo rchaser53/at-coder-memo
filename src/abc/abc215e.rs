@@ -16,25 +16,25 @@ pub fn main(
 
   let s = s.into_iter().map(|c| (c as u8 - 'A' as u8) as usize).collect::<Vec<usize>>();
   let limit = 1 << 10;
-  let mut dp = vec![vec![0;limit];10];
-  
-  for x in s {
-    let mut next = dp.clone();
-    next[x][1 << x] += 1;
-    for j in 0..limit {
-      for k in 0..10 {
-        if j >> x & 1 == 1 && x != k { continue }
-        next[x][j | (1 << x)] += dp[k][j];
-        next[x][j | (1 << x)] %= MOD;
+  let mut memo = vec![vec![0;10];limit];
+  for v in s {
+    let mut next = memo.clone();
+    next[1 << v][v] += 1;
+    next[1 << v][v] %= MOD;
+    for i in 0..10 {
+      for j in 0..limit {
+        if j >> v & 1 == 1 && v != i { continue }
+        next[j | 1 << i][v] += memo[j][i];
+        next[j | 1 << i][v] %= MOD;
       }
     }
-    dp = next;
+    memo = next;
   }
-  
-  let mut result = 0usize;
-  for i in 0..limit {
-    for j in 0..10 {
-      result += dp[j][i];
+
+  let mut result = 0;
+  for i in 0..10 {
+    for j in 0..limit {
+      result += memo[j][i];
       result %= MOD;
     }
   }
