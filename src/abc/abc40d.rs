@@ -1,7 +1,3 @@
-/* OUTPUT FILE */
-#![allow(unused_imports)]
-#![allow(dead_code)]
-#![allow(unused_assignments)]
 use proconio::input;
 use proconio::marker::*;
 use std::collections::*;
@@ -46,22 +42,35 @@ fn connect(
   true
 }
 
-pub fn main(
-) {
-  input! {
+fn main() {
+  input!{
     n:usize,
-    mut edges:[(Isize1,Isize1,isize);n-1]
+    m:usize,
+    mut edges:[(Isize1, Isize1, usize);m],
+    q:usize,
+    mut vals: [(Isize1,usize);q]
   }
-
-  edges.sort_by(|a,b| a.2.cmp(&b.2));
 
   let mut memo = vec![-1;n];
-  let mut result = 0;
-  for (f, t, v) in edges {
-    let fv = size(&mut memo, f);
-    let tv = size(&mut memo, t);
-    result += fv * tv * v;
-    connect(&mut memo, f, t);
+  edges.sort_by(|a,b| a.2.cmp(&b.2));
+  edges.reverse();
+
+  let mut vals = vals.into_iter().enumerate().collect::<Vec<(usize,(isize,usize))>>();
+  vals.sort_by(|a,b| (a.1).1.cmp(&(b.1).1));
+  vals.reverse();
+  let mut result = vec![0;q];
+
+  let mut ei = 0;
+  for (i, (live_town_index, val)) in vals {
+    while ei < m && val < edges[ei].2 {
+      let (a, b, should_large) = edges[ei];
+      connect(&mut memo, a, b);
+      ei += 1;
+    }
+    result[i] = size(&mut memo, live_town_index);
   }
-  println!("{}", result);
+  
+  for v in result {
+    println!("{}", v);
+  }
 }
