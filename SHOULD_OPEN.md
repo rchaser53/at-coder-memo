@@ -28,6 +28,7 @@
 - ベクトル
   - 垂線引くやつ
 - union_find(sizeが使えるやつ)
+- clascal(最小全域木)
 
 - 強連結成分
   - typical90_21.rs
