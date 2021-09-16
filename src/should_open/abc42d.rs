@@ -21,17 +21,20 @@ fn mod_inv(a: usize) -> usize {
   modpow(a, MOD-2)
 }
 
+// nCk % MOD
+// 組み合わせ。2種類の文字の並び替え
+// nが大きい時に使う
+fn choose(c:usize, k:usize) -> usize {
+  let inv_k = mod_inv(k);
+  c * inv_k % MOD
+}
+
 fn helper(forwards: &Vec<usize>, backs: &Vec<usize>, a:usize, b:usize) -> usize {
   let tot = a + b;
   let rc = backs[tot-a+1];
   let rp = forwards[a];
   let inv_rp = mod_inv(rp);
   rc * inv_rp
-}
-
-fn culc(tv:usize, rpv:usize) -> usize {
-  let inv_rpv = mod_inv(rpv);
-  tv * inv_rpv % MOD
 }
 
 fn main() {
@@ -56,7 +59,7 @@ fn main() {
     ftv *= fwv - i;
     ftv %= MOD;
   }
-  let fv = culc(ftv, forwards[fwv]) % MOD;
+  let fv = choose(ftv, forwards[fwv]) % MOD;
 
   let mut btv = 1usize;
   let bwv = w-b-1;
@@ -65,7 +68,7 @@ fn main() {
     btv *= tot - i;
     btv %= MOD;
   }
-  let bv = culc(btv, forwards[bwv]);
+  let bv = choose(btv, forwards[bwv]);
   let mut result = fv * bv % MOD;
 
   for i in 1..h-a {
@@ -74,7 +77,7 @@ fn main() {
     ftv %= MOD;
     ftv *= tot;
     ftv %= MOD;
-    let fv = culc(ftv, forwards[fwv]);
+    let fv = choose(ftv, forwards[fwv]);
 
     let bhv = h-i-1;
     let tot = bwv+bhv;
@@ -82,7 +85,7 @@ fn main() {
     btv %= MOD;
     btv *= tot-bwv+1;
     btv %= MOD;
-    let bv = culc(btv, forwards[bwv]);
+    let bv = choose(btv, forwards[bwv]);
 
     result += fv * bv % MOD;
     result %= MOD;
