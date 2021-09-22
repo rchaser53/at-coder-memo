@@ -31,6 +31,7 @@
 - union_find(sizeが使えるやつ)
   - 小さければ自己交差とかも求められる
 - clascal(最小全域木)
+- LazySegmentTree(遅延セグ木)
 
 - 強連結成分
   - typical90_21.rs
