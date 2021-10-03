@@ -32,6 +32,8 @@
   - 小さければ自己交差とかも求められる
 - clascal(最小全域木)
 - LazySegmentTree(遅延セグ木)
+- permutation
+  - 最初にsortをするのを忘れずに
 
 - 強連結成分
   - typical90_21.rs
