@@ -6,7 +6,8 @@ use proconio::input;
 use proconio::marker::*;
 use std::collections::*;
 
-// トポロジカルソート(topological sort)
+// トポロジカルソート(topological sort) DFS
+// ループの検出ができない
 fn topological_sort(
   g: &Vec<Vec<usize>>,
   seen: &mut Vec<bool>,

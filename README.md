@@ -73,7 +73,7 @@ arc39b.rsのinvの解説
   - DAGでしか使えない
     - 閉路があると駄目
     - 戻り値のvecのlenを見て、超点数と等しくなければ閉路がある
-- nikkei2019-qual_d.rs
+- abc216d.rs
 
 #### abc193e.rs
 特定のスパンで状態が変化する。(PとQ, XとY)
