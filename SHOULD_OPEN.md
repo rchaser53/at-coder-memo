@@ -34,6 +34,8 @@
 - LazySegmentTree(遅延セグ木)
 - permutation
   - 最初にsortをするのを忘れずに
+- dijkstra
+  - 経路復元付き
 
 - 強連結成分
   - typical90_21.rs
