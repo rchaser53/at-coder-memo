@@ -41,7 +41,7 @@ impl SegmentTree {
       n:x,
       arr:vec![e;x*2],
       e
-    }    
+    }
   }
    
   pub fn update(&mut self, mut i: usize, val: TreeType) {
