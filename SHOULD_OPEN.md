@@ -39,6 +39,8 @@
   - 最初にsortをするのを忘れずに
 - dijkstra
   - 経路復元付き
+- topological_sort
+  - ループ検出
 
 - 強連結成分
   - typical90_21.rs
