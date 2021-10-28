@@ -137,10 +137,12 @@ impl TE for R {
   fn eval(p:Self::T, x:Self::E) -> Self::T {
     std::cmp::max(p, x)
   }
+  // 値の変更
   fn merge(f:Self::E, g:Self::E) -> Self::E {
     // std::cmp::max(f, g)
     f + g
   }
+  // 初期値
   fn e() -> Self::T {
     0usize
   }

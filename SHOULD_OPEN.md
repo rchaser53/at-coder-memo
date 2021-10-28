@@ -47,5 +47,7 @@
   - typical90_21.rs
 - オイラーツアー
   - abc202e.rs
-- セグメントツリー
-  - SegmentTree
+- SegmentTree セグメントツリー
+  - 一点更新、区間取得
+- LazySegmentTree 遅延セグ木
+  - 区間更新、区間取得
