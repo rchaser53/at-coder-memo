@@ -7,6 +7,7 @@ use std::cmp::Ordering;
 
 const MOD:usize = 998_244_353;
 const MAX_VALUE:usize = std::usize::MAX;
+// 区間和を求める遅延セグ木
 struct LazySegmentTree {
   node: Vec<usize>,
   nums: Vec<usize>,
