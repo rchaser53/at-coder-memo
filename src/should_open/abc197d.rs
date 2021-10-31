@@ -40,6 +40,7 @@ fn main() {
   // 複素数のベクトルはかけると長さが積になり、角度が和になる
   let c1 = mid + base * (c0 - mid);
   
+  // re: x, im: y
   println!("{} {}", c1.re, c1.im);
 }
 
