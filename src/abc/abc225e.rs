@@ -28,7 +28,7 @@ fn main() {
   points.sort_by(|a,b| helper(&a.1, &b.1));
 
   let mut result = 0;
-  let mut now = (1, 0);
+  let mut now = (0, 0);
   for (from, to) in points {
     if helper(&now, &from) != Ordering::Greater {
       result += 1;
