@@ -41,6 +41,8 @@
   - 最初にsortをするのを忘れずに
 - dijkstra
   - 経路復元付き
+- bellman_ford (ベルマンフォード)
+  - dijkstraより遅いが負のループを検出できる
 - topological_sort
   - ループ検出
 
