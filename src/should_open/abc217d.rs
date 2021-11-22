@@ -5,6 +5,7 @@ use std::collections::*;
 type Target = usize;
 type UseValue = usize;
 
+// 二分探索 + O(logN) orderでinsert
 fn lower_bound(stree: &SegmentTree, x: &UseValue) -> usize {
     let limit = stree.n+1;
     let mut low = 0;
