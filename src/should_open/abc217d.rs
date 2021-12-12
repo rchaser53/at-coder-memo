@@ -64,7 +64,7 @@ impl SegmentTree {
     k:usize, l:usize, r:usize
   ) -> TreeType { 
     if r <= a || b <= l {
-      0
+      self.e
     } else if a <= l && r <= b {
       self.arr[k]
     } else {
