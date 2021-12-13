@@ -31,3 +31,19 @@ fn main() {
   
   println!("{}", memo[n]);
 }
+
+fn another() {
+  let mut n:usize = readln();
+  
+  let mut i = 0;
+  while 0 < n {
+    i += 1;
+    if n % 3 == 0 {
+      n /= 3;
+    } else {
+      n -= 1;
+    }
+  }
+  
+  println!("{}", i);
+}
