@@ -13,7 +13,14 @@ fn readvec<T: std::str::FromStr>() -> Vec<T> {
       .map(|x| x.parse().ok().unwrap())
       .collect()
 }
+fn read_chars() -> Vec<char> {
+  let mut tmp = String::new();
+  std::io::stdin().read_line(&mut tmp).ok();
+  let tmp:String = tmp.trim().parse().ok().unwrap();
+  tmp.chars().into_iter().collect::<Vec<char>>()
+}
 
+const INF:usize = 1_000_000_000_000usize;
 fn main() {
   let dict:Vec<usize> = readvec();
   let (n, m) = (dict[0], dict[1]);
@@ -21,29 +28,34 @@ fn main() {
   for _ in 0..n {
     dict.push(readvec());
   }
+  
+  let mut memo = vec![INF;m+1];
+  memo[0] = 0;
 
-  let mut memo = vec![false;m+1];
-  memo[0] = true;
-
-  for v in dict {
-    let (a,b) = (v[0], v[1]);
-    let mut new_memo = memo.clone();
-    for i in 0..m {
-      if !memo[i] { continue }
-      for j in 1..=b {
-        let ni = i + a * j;
-        if m < ni { break }
-        new_memo[ni] = true;
+  for i in 0..n {
+    let mut new_memo = vec![INF;m+1];
+    for j in 0..=m {
+      if memo[j] < INF {
+        new_memo[j] = 0;
       }
 
-      if new_memo[m] {
-        println!("Yes");
-        return
+      let (av, bv) = (dict[i][0], dict[i][1]);
+      if j < av { continue }
+      let ni = j - av;
+      if memo[ni] < INF {
+        new_memo[j] = std::cmp::min(new_memo[j], 1);
+      }
+      if new_memo[ni] < bv {
+        new_memo[j] = std::cmp::min(new_memo[j], new_memo[ni]+1);
       }
     }
 
     memo = new_memo;
-
   }
-  println!("No");
+
+  if memo[m] == INF {
+    println!("No");
+  } else {
+    println!("Yes");
+  }
 }
