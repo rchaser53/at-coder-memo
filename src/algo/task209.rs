@@ -1,3 +1,4 @@
+/** THIS IS AN OUTPUT FILE. NOT EDIT THIS FILE DIRECTLY. **/
 use std::collections::*;
 use std::cmp::Reverse;
 
@@ -23,11 +24,11 @@ fn main() {
   let dict:Vec<usize> = readvec();
   let (n, m) = (dict[0], dict[1]);
   let dict:Vec<usize> = readvec();
-  let mut result = 0;
   for v in dict {
     if v == m {
-      result += 1;
+      println!("Yes");
+      return
     }
   }
-  println!("{}", result);
+  println!("No");
 }
