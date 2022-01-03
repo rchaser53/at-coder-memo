@@ -26,6 +26,7 @@
 - com
 - mod_inv
 - choose(nCk, 組み合わせ。nが大きい時)
+  - 単純にMODの割り算がしたい場合はmod_invだけ使う
 - prime_factorization // 素因数分解
   - sieve // エラトステネスの変形
 - upper_bound, lower_bound
