@@ -28,7 +28,8 @@
 - choose(nCk, 組み合わせ。nが大きい時)
   - 単純にMODの割り算がしたい場合はmod_invだけ使う
 - prime_factorization // 素因数分解
-  - sieve // エラトステネスの変形
+  - sieve // エラトステネスのふるいの変形
+    - abc172d.rs 約数の個数を求める変形
 - upper_bound, lower_bound
 - Fenwick
 - heap_recursive
