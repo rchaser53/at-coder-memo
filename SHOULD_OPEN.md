@@ -1,5 +1,4 @@
 # コンテスト前に開いておくこと
-- roaming.rs
 - flatten.rs
 - arc30b.rs
   - arc32b.rs
@@ -25,7 +24,7 @@
 - lca // lowest common ancestor
 - com
 - mod_inv
-- choose(nCk, 組み合わせ。nが大きい時)
+- Binom(nCk, 組み合わせ。nが大きい時)
   - 単純にMODの割り算がしたい場合はmod_invだけ使う
 - prime_factorization // 素因数分解
   - sieve // エラトステネスのふるいの変形
