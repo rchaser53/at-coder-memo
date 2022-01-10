@@ -39,6 +39,7 @@ fn main() {
       j += i;
     }
 
+    // start: a 以上の最小の i の倍数
     let mut start = (a+i-1) / i * i;
     if start == i {
       start = i * 2;
