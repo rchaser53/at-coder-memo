@@ -1,38 +1,28 @@
-#![allow(unused_imports)]
-use proconio::{input, fastout};
+/** THIS IS AN OUTPUT FILE. NOT EDIT THIS FILE DIRECTLY. **/
+use proconio::input;
 use proconio::marker::*;
-use itertools::Itertools;
-use maplit::{btreemap, btreeset, hashmap, hashset};
-use petgraph::unionfind::UnionFind;
-use petgraph::algo::dijkstra;
-use petgraph::graph::{NodeIndex, DiGraph, UnGraph};
-use permutohedron::{Heap, heap_recursive};
 use std::collections::*;
-use superslice::Ext;
-
-const MOD:usize = 1_000_000_007;
-const MAX: usize = 1000;
+use std::cmp::Reverse;
 
 fn main() {
-  input!{
-    a: usize,
-    b: usize,
-    w: usize
+  input! {
+    a:isize,
+    b:isize,
+    w:isize
   }
-  let w = w * 1000;
-
-  let mut max = 0;
-  let mut min = 1_000_000_000;
-  for i in 1..=1_000_000 {
-    if a*i <= w && w <= b*i {
-      max = std::cmp::max(max, i);
+  let mut min = 1000010;
+  let mut max = -1;
+  let w = 1000 * w;
+  for i in 1..1000010 {
+    if a * i <= w && w <= b * i {
       min = std::cmp::min(min, i);
+      max = std::cmp::max(max, i);
     }
   }
 
-  if max == 0 {
-    println!("UNSATISFIABLE"); 
+  if min == 1000010 || max == -1 {
+    println!("UNSATISFIABLE");
   } else {
-    println!("{} {}", min, max);  
+    println!("{} {}", min, max);
   }
 }
