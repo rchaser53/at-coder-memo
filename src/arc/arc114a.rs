@@ -1,64 +1,65 @@
-#![allow(unused_imports)]
-use proconio::{input, fastout};
+/** THIS IS AN OUTPUT FILE. NOT EDIT THIS FILE DIRECTLY. **/
+use proconio::input;
 use proconio::marker::*;
-use itertools::Itertools;
-use maplit::{btreemap, btreeset, hashmap, hashset};
-use petgraph::unionfind::UnionFind;
-use petgraph::algo::dijkstra;
-use petgraph::graph::{NodeIndex, DiGraph, UnGraph};
-use permutohedron::{Heap, heap_recursive};
 use std::collections::*;
-use superslice::Ext;
+use std::cmp::*;
 
-const MOD:usize = 1_000_000_007;
-const MAX:usize = 1000;
-
-fn culc(x:usize) -> bool {
-  let mut i = 2;
-  while i * i <= x {
-    if x % i == 0 {
-      return false
-    } else {
-      i += 1;
-    }
+fn gcd(a: usize, b: usize) -> usize {
+  if b == 0 {
+    return a
   }
-  true
+  gcd(b, a % b)
 }
 
 fn main() {
-  input!{
+  input! {
     n:usize,
-    mut vals:[usize;n]
-  }  
-  
-  let mut nums = vec![];
+    vals:[usize;n]
+  }
+
+  let mut memo = vec![true;51];
+  memo[0] = false;
+  memo[1] = false;
   for i in 2..=50 {
-    if culc(i) {
-      nums.push(i);
+    if !memo[i] {
+      continue
+    }
+    for j in 2.. {
+      let ni = i * j;
+      if 50 < ni { break }
+      memo[ni] = false;
     }
   }
-  let limit = 1 << nums.len();
-  let mut min = 1_000_000_000_000_000_000usize;
-  for i in 0..limit {
-    let mut set = HashSet::new();
-    for ii in 0..nums.len() {
-      if i >> ii & 1 == 1 {
-        for iii in 0..n {
-          if vals[iii] % nums[ii] == 0 {
-            set.insert(iii);
-          }
-        }
+  
+  let mut dict = vec![];
+  for i in 2..=50 {
+    let v = memo[i];
+    if v {
+      dict.push(i);
+    }
+  }
+
+  let n = dict.len();
+  let limit = 1 << n;
+  let mut min = usize::max_value();
+  for i in 1..limit {
+    let mut temp = 1;
+    for j in 0..n {
+      if i >> j & 1 == 1 {
+        temp *= dict[j];
       }
     }
-    if set.len() == n {
-      let mut v = 1;
-      for ii in 0..nums.len() {
-        if i >> ii & 1 == 1 {
-          v *= nums[ii];
-        }
-      }
 
-      min = std::cmp::min(min, v);
+    let mut success = true;
+    for &v in &vals {
+      if gcd(v, temp) == 1 {
+        success = false;
+        break
+      }
+    }
+
+    if success {
+      min = std::cmp::min(min, temp);
     }
   }
   
