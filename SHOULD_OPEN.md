@@ -46,6 +46,8 @@
   - dijkstraより遅いが負のループを検出できる
 - topological_sort
   - ループ検出
+- create_primes
+  - 素数列挙(O(n)注意)
 
 - 強連結成分
   - typical90_21.rs
@@ -65,3 +67,5 @@
 - 最大流/最小カット(FordFulkerson)
   - startとgoalを足して、流量を1にすれば二部マッチングもいける
   - abc10d.rs
+- 平方数の約数の数は奇数
+  - task356.rs
