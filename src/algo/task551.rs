@@ -53,3 +53,39 @@ fn main() {
 
   println!("{}", result);
 }
+
+
+fn gcd(a:usize,b:usize) -> usize {
+  if b == 0 {
+    a
+  } else {
+    gcd(b, a % b)
+  }
+}
+
+fn another() {
+  let n:usize = readln();
+  let mut vals:Vec<usize> = readvec();
+  vals.sort();
+  for i in 1..n {
+    vals[i] -= vals[0];
+  }
+
+  let mut gcdv = 0;
+  for i in 1..n {
+    gcdv = gcd(gcdv, vals[i]);
+  }
+
+  let mut set = HashSet::new();
+  let mut i = 1;
+
+  while i * i <= gcdv {
+    if gcdv % i == 0 {
+      set.insert(gcdv/i);
+      set.insert(i);
+    }
+    i += 1;
+  }
+  
+  println!("{}", set.len());
+}
