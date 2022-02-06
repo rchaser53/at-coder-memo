@@ -24,6 +24,8 @@
 - lca // lowest common ancestor
 - com
 - mod_inv
+- ModInt (Modの計算を扱う際にコピペすること)
+  - abc238c.rs
 - Binom(nCk, 組み合わせ。nが大きい時)
   - 単純にMODの割り算がしたい場合はmod_invだけ使う
 - prime_factorization // 素因数分解
