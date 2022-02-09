@@ -1,19 +1,20 @@
+/** THIS IS AN OUTPUT FILE. NOT EDIT THIS FILE DIRECTLY. **/
 use proconio::input;
 use proconio::marker::*;
 use std::collections::*;
+use std::cmp::Ordering::*;
 
 type Target = usize;
 type UseValue = usize;
-
-// 二分探索 + O(logN) orderでinsert
 fn lower_bound(stree: &SegmentTree, x: &UseValue) -> usize {
-    let limit = stree.n+1;
     let mut low = 0;
-    let mut high = limit;
+    let mut high = stree.arr.len();
     while low != high {
         let mid = (low + high) / 2;
+
+        // 0からmidまでのindexの間の最大値を返す
+        let v = stree.query(0, mid+1);
         // NEEDS TO EDIT
-        let v = stree.query(0, mid);
         match v.cmp(x) {
             std::cmp::Ordering::Less => {
                 low = mid + 1;
@@ -76,44 +77,47 @@ impl SegmentTree {
 }
 
 fn main() {
-  input!{
+  input! {
     l:usize,
     q:usize,
-    vals:[(usize, usize);q]
+    queries:[(usize,usize);q]
   }
 
+  // 座標圧縮
   let mut set = HashSet::new();
-  set.insert(0);
-  for &(_, v) in &vals {
+  for &(_, v) in &queries {
     set.insert(v);
   }
-  let mut dict = set.into_iter().collect::<Vec<usize>>();
-  dict.sort();
+  set.insert(0);
+  set.insert(l);
 
+  let mut arr = set.into_iter().collect::<Vec<usize>>();
+  arr.sort();
   let mut map = HashMap::new();
-  map.insert(0, 0);
-  for i in 1..dict.len() {
-    map.insert(dict[i], i);
+  for i in 0..arr.len() {
+    map.insert(arr[i], i);
   }
+  // 座標圧縮
 
-  let qn = dict.len();
-  let mut stree = SegmentTree::new(qn+1, 0);
-  for (t, v) in vals {
+  let len = arr.len();
+  let mut stree = SegmentTree::new(arr.len()+10, 0);
+  for (t, v) in queries {
     let ti = *map.get(&v).unwrap();
     if t == 1 {
       stree.update(ti, ti);
     } else {
+      // tiより小さい中で最大の値が取得できる
       let li = stree.query(0, ti);
-      let lv  = dict[li];
+      // 複数同じ要素がある訳でないのでlower_boundでなくても良い(エラーハンドリングが楽なだけ)
+      // tiより大きい中で最低の値を取得したい
+      let hi = lower_bound(&stree, &(ti+1));
 
-      let hi = lower_bound(&stree, &ti) - 1;
-      let hv = if qn <= hi {
-        l
+      // 範囲外の場合はlenより大きい値になるためエラーハンドリング
+      if len < hi {
+        println!("{}", l - arr[li]);
       } else {
-        dict[hi]
-      };
-
-      println!("{}", hv - lv);
+        println!("{}", arr[hi] - arr[li]);
+      }
     }
   }
 }
