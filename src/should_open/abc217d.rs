@@ -6,7 +6,7 @@ use std::cmp::Ordering::*;
 
 type Target = usize;
 type UseValue = usize;
-fn lower_bound(stree: &SegmentTree, x: &UseValue) -> usize {
+fn lower_bound(stree: &SegmentTree, x:UseValue) -> usize {
     let mut low = 0;
     let mut high = stree.arr.len();
     while low != high {
@@ -15,7 +15,7 @@ fn lower_bound(stree: &SegmentTree, x: &UseValue) -> usize {
         // 0からmidまでのindexの間の最大値を返す
         let v = stree.query(0, mid+1);
         // NEEDS TO EDIT
-        match v.cmp(x) {
+        match v.cmp(&x) {
             std::cmp::Ordering::Less => {
                 low = mid + 1;
             }
@@ -76,6 +76,22 @@ impl SegmentTree {
   }
 }
 
+// 座標圧縮
+fn compress<T: std::cmp::Eq + std::cmp::Ord + std::hash::Hash + Copy >(arr:&Vec<T>) -> (Vec<T>, HashMap<T, usize>) {
+  let mut set = HashSet::new();
+  for &v in arr {
+    set.insert(v);
+  }
+  let mut arr = set.into_iter().collect::<Vec<T>>();
+  arr.sort();
+
+  let mut map = HashMap::new();
+  for i in 0..arr.len() {
+    map.insert(arr[i], i);
+  }
+  (arr, map)
+}
+
 fn main() {
   input! {
     l:usize,
@@ -83,24 +99,20 @@ fn main() {
     queries:[(usize,usize);q]
   }
 
-  // 座標圧縮
-  let mut set = HashSet::new();
-  for &(_, v) in &queries {
-    set.insert(v);
+  let mut arr = vec![0;q];
+  for i in 0..q {
+    arr[i] = queries[i].1;
   }
-  set.insert(0);
-  set.insert(l);
+  // 最小値と最大値を入れておくことでハンドリングを楽にする
+  arr.push(0);
+  arr.push(l);
 
-  let mut arr = set.into_iter().collect::<Vec<usize>>();
-  arr.sort();
-  let mut map = HashMap::new();
-  for i in 0..arr.len() {
-    map.insert(arr[i], i);
-  }
-  // 座標圧縮
-
+  let (arr, map) = compress(&arr);
   let len = arr.len();
   let mut stree = SegmentTree::new(arr.len()+10, 0);
+
+  // 最大値であるlのindexを入れておくことでハンドリングを楽にする
+  stree.update(len-1, len-1);
   for (t, v) in queries {
     let ti = *map.get(&v).unwrap();
     if t == 1 {
@@ -110,14 +122,9 @@ fn main() {
       let li = stree.query(0, ti);
       // 複数同じ要素がある訳でないのでlower_boundでなくても良い(エラーハンドリングが楽なだけ)
       // tiより大きい中で最低の値を取得したい
-      let hi = lower_bound(&stree, &(ti+1));
+      let hi = lower_bound(&stree, ti+1);
 
-      // 範囲外の場合はlenより大きい値になるためエラーハンドリング
-      if len < hi {
-        println!("{}", l - arr[li]);
-      } else {
-        println!("{}", arr[hi] - arr[li]);
-      }
+      println!("{}", arr[hi] - arr[li]);
     }
   }
 }

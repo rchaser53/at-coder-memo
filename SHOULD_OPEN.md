@@ -50,6 +50,9 @@
   - ループ検出
 - create_primes
   - 素数列挙(O(n)注意)
+- compress
+  - 座標圧縮(abc217d.rs)
+  - 簡単だが書くと面倒、時間がかかる
 
 - 強連結成分
   - typical90_21.rs
