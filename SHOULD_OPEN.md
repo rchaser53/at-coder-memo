@@ -26,6 +26,7 @@
 - mod_inv
 - ModInt (Modの計算を扱う際にコピペすること)
   - abc238c.rs
+  - abc162e.rs // ModInt用のrepeat_squareがある
 - Binom(nCk, 組み合わせ。nが大きい時)
   - 単純にMODの割り算がしたい場合はmod_invだけ使う
 - prime_factorization // 素因数分解
