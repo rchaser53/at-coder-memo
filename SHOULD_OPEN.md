@@ -23,6 +23,7 @@
 - lcm
 - lca // lowest common ancestor
 - com
+  - 10^6くらいまでのnCkが求められるやつ(abc167e.rs)
 - mod_inv
 - ModInt (Modの計算を扱う際にコピペすること)
   - abc238c.rs
