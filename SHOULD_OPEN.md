@@ -62,7 +62,7 @@
   - abc202e.rs
 - SegmentTree セグメントツリー
   - 一点更新、区間取得
-  - O(logn) insertの二分探索 (abc217d.rs)
+  - O(logn) insertの二分探索 (abc217d.rs, abc241d.rs)
 - LazySegmentTree 遅延セグ木
   - 区間更新、区間取得
   - 区間の最大値
