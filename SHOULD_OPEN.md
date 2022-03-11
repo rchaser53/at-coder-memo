@@ -65,8 +65,8 @@
   - O(logn) insertの二分探索 (abc217d.rs, abc241d.rs)
 - LazySegmentTree 遅延セグ木
   - 区間更新、区間取得
-  - 区間の最大値
-    - past202109j.rs
+  - 区間の最大値(値の更新と値の設定ができる)
+    - typical29.rs
   - 区間和用
     - abl_e.rs
 - 三分探索(凸性を持ち極値が1つの場合のみ使える)
