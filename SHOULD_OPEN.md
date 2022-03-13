@@ -48,6 +48,9 @@
   - 経路復元付き
 - bellman_ford (ベルマンフォード)
   - dijkstraより遅いが負のループを検出できる
+- Warshall Floyd(ワーシャルフロイド )
+  - O(V^3)
+  - 全ての点から点への最短距離が検出できる
 - topological_sort
   - ループ検出
 - create_primes

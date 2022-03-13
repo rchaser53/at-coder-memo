@@ -21,6 +21,7 @@ pub fn main(
     memo[i][i] = 0;
   }
 
+  // ワーシャルフロイド Warshall Floyd
   let mut result = 0usize;
   for k in 0..n {
     for i in 0..n {
