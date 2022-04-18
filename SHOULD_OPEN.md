@@ -93,6 +93,8 @@
   - abc190e.rs
 - 2次元配列回転 (90°)
   - rotate90
+- しゃくとり法(尺取法、しゃく取り法)
+  - syakutori.rs
 
 # インタラクティブ interactive 問題用のベース
 - abc244c.rs
