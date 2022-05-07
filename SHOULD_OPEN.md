@@ -25,6 +25,8 @@
 - com
   - 10^6くらいまでのnCkが求められるやつ(abc167e.rs)
 - mod_inv
+  - directly_using_choose.rs
+  - nCkとかでnが変動するケースに使う
 - ModInt (Modの計算を扱う際にコピペすること)
   - abc238c.rs
   - abc162e.rs // ModInt用のrepeat_squareがある
