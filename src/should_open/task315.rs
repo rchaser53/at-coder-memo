@@ -20,35 +20,35 @@ fn read_chars() -> Vec<char> {
   tmp.chars().into_iter().collect::<Vec<char>>()
 }
 
-// レーベンシュタイン距離 (diff コマンド)
 fn main() {
   let s = read_chars();
   let t = read_chars();
 
+  let n = s.len();
+  let m = t.len();
+
   let inf = 1_000_000_000;
-  let limit = 1010;
-  let mut memo = vec![vec![inf;limit];limit];
-  memo[1][1] = 0;
+  let mut memo = vec![vec![inf;m+1];n+1];
+  memo[0][0] = 0;
+  // insertとdeleteがあるので(0,1)と(1,0)をケアしないと駄目
+  for i in 0..=n {
+    for j in 0..=m {
+      if 0 < i {
+        memo[i][j] = memo[i][j].min(memo[i-1][j]+1);
+      }
 
-  for i in 0..=s.len() {
-    for j in 0..=t.len() {
-      if i == 0 && j == 0 { continue }
-      if 1 <= i && 1 <= j {
+      if 0 < j {
+        memo[i][j] = memo[i][j].min(memo[i][j-1]+1);
+      }
+
+      if 0 < i && 0 < j {
         if s[i-1] == t[j-1] {
-          memo[i+1][j+1] = std::cmp::min(memo[i+1][j+1], memo[i][j]);
+            memo[i][j] = memo[i][j].min(memo[i-1][j-1]);
         } else {
-          memo[i+1][j+1] = std::cmp::min(memo[i+1][j+1], memo[i][j]+1);
+            memo[i][j] = memo[i][j].min(memo[i-1][j-1]+1)
         }
-      }
-
-      if 1 <= i {
-        memo[i+1][j+1] = std::cmp::min(memo[i+1][j+1], memo[i][j+1] + 1);
-      }
-      if 1 <= j {
-        memo[i+1][j+1] = std::cmp::min(memo[i+1][j+1], memo[i+1][j] + 1);
       }
     }
   }
-
-  println!("{}", memo[s.len()+1][t.len()+1]);
+  println!("{}", memo[n][m]); 
 }
