@@ -42,7 +42,8 @@
   - 垂線引くやつ
 - union_find(sizeが使えるやつ)
   - 小さければ自己交差とかも求められる
-- clascal(最小全域木)
+- kruskal(最小全域木)
+  - kruskal_problem
 - LazySegmentTree(遅延セグ木)
 - permutation
   - 最初にsortをするのを忘れずに
