@@ -105,6 +105,7 @@
 - ローリングハッシュ(rolling hash)
   - O(1)で文字列が一致するかどうかが調べられる
   - rolling_hash_problem.rs
+  - abc141e.rs
 
 # インタラクティブ interactive 問題用のベース
 - abc244c.rs
