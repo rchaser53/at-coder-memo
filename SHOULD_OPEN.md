@@ -102,6 +102,7 @@
   - 集合A,B,Cの和集合を求めることができるやつ
 - 編集距離(レーベルシュタイン距離)
   - insert、delete、updateで2つの部分文字列を一致させるのに必要な最小回数を求めるやつ
+  - task315.rs
 - ローリングハッシュ(rolling hash)
   - O(1)で文字列が一致するかどうかが調べられる
   - rolling_hash_problem.rs
