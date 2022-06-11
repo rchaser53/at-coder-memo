@@ -72,3 +72,23 @@ fn helper(a: &str, b: &str) -> usize {
 
   memo[n][m]
 }
+
+// 連続する部分文字列の最長の長さ
+pub fn find_length(nums1: Vec<i32>, nums2: Vec<i32>) -> i32 {
+  let a = nums1.into_iter().map(|v| v as usize).collect::<Vec<usize>>();
+  let b = nums2.into_iter().map(|v| v as usize).collect::<Vec<usize>>();
+
+  let n = a.len();
+  let m = b.len();
+  let mut memo = vec![vec![0;m+1];n+1];
+  let mut result = 0;
+  for i in 0..n {
+    for j in 0..m {
+      if a[i] == b[j] {
+        memo[i+1][j+1] = std::cmp::max(memo[i+1][j+1], memo[i][j] + 1);
+        result = std::cmp::max(result, memo[i+1][j+1]);
+      }
+    }
+  }
+  result
+}
