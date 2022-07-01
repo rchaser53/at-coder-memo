@@ -49,6 +49,7 @@
   - 最初にsortをするのを忘れずに
 - dijkstra
   - 経路復元付き
+  - abc252e.rs
 - bellman_ford (ベルマンフォード)
   - dijkstraより遅いが負のループを検出できる
 - Warshall Floyd(ワーシャルフロイド )
