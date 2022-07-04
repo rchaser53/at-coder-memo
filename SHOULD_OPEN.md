@@ -108,6 +108,8 @@
   - O(1)で文字列が一致するかどうかが調べられる
   - rolling_hash_problem.rs
   - abc141e.rs
+- grid ループ 斜め 移動 bfs
+  - abc258b.rs
 
 # インタラクティブ interactive 問題用のベース
 - abc244c.rs
