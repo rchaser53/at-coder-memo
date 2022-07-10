@@ -16,6 +16,8 @@ use std::cmp::Ordering;
 const MOD:usize = 1_000_000_007;
 const MAX: usize = 1000;
 
+// 座標。回転。ベクトル
+
 // 正Nは偶数なので、p0とpN/2の中点を取ることで正N角形の中心が得られる
 fn main() {
   input!{
@@ -29,7 +31,7 @@ fn main() {
   // 中点
   let mid = (c0 + c2) / Complex::new(2f64, 0f64);
   
-  // 正n角形の内角
+  // 正n角形の内角(ラジアンにするのを忘れずに。特にPI)
   let theta = 2f64 * std::f64::consts::PI / n;
   
   // θを加えるためだけの単位ベクトル的なものを作る
