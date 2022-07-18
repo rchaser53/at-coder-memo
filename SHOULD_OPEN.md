@@ -73,6 +73,7 @@
   - O(logn) insertの二分探索 (abc217d.rs, abc241d.rs)
   - lower_boundが使いたい + O(log n)でremoveしたい
     - segment_tree_and_lower_bound.rs
+    - abc260d.rs
 - LazySegmentTree 遅延セグ木
   - 区間更新、区間取得
   - 区間の最大値(値の更新と値の設定ができる)
