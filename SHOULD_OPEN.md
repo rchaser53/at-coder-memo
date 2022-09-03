@@ -118,6 +118,9 @@
   - abc266c.rs
 - ベクトルの外積の大きさが平行四辺形の面積になるやつ
   - abc2c.rs
+- 期待値
+  - abc263e.rs
+  - abc266e.rs
 
 # インタラクティブ interactive 問題用のベース
 - abc244c.rs

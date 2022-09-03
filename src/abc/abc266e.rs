@@ -30,13 +30,14 @@ impl Helper {
   }
 }
 
+// 期待値、期待値DP
 fn main() {
   input! {
     n:usize
   }
 
   let mut helper = Helper { memo: vec![None;n] };
-  helper.memo[0] = Some(3.5);
+  helper.memo[0] = Some(3.5); // (1+2+3+4+5+6)/6
   helper.dfs(n-1);
   println!("{}", helper.memo[helper.memo.len()-1].unwrap());
 }
