@@ -56,7 +56,7 @@
   - O(V^3)
   - 全ての点から点への最短距離が検出できる
 - topological_sort
-  - ループ検出
+  - ループ検出(有向グラフである必要がある)
 - create_primes
   - 素数列挙(O(n)注意)
 - compress
@@ -121,6 +121,9 @@
 - 期待値
   - abc263e.rs
   - abc266e.rs
+- ループ検出
+  - 無向グラフでも利用できる
+  - abc
 
 # インタラクティブ interactive 問題用のベース
 - abc244c.rs
