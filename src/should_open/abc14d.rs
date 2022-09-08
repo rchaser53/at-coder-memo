@@ -1,109 +1,89 @@
-/* OUTPUT FILE */
-#![allow(unused_imports)]
-#![allow(dead_code)]
-#![allow(unused_assignments)]
+/** THIS IS AN OUTPUT FILE. NOT EDIT THIS FILE DIRECTLY. **/
+use std::collections::*;
+use std::cmp::Reverse;
 use proconio::input;
 use proconio::marker::*;
-use std::collections::*;
+use std::cmp::Ordering;
 
 struct LCA {
-  graph: Vec<Vec<usize>>,  // 木を表現する隣接行列
-  parent: Vec<Vec<usize>>, // parent[k][u] := uの2^k先の親
-  dist: Vec<usize>,        // rootからの距離
-  default_value: usize     // parentやdistに入る初期値
+  depths: Vec<usize>,
+  table: Vec<Vec<usize>>
 }
 
 impl LCA {
-  fn new(
-    graph: Vec<Vec<usize>>,
-    default_value: usize,
-  ) -> LCA {
-    let v = graph.len();
-    let mut k = 1;
-    while (1 << k) < v {
-      k += 1;
-    }
-    let parent = vec![vec![default_value;v];k];
-    let dist = vec![default_value;v];
-    LCA {
-      graph, parent, dist, default_value
+  fn new(g:Vec<Vec<usize>>, n:usize, root:usize, max:usize) -> LCA {
+    let mut parents = vec![root;n];
+    let mut depths = vec![0;n];
+    let mut table = vec![vec![0;n];max];
+    LCA::dfs(&g, &mut parents, &mut depths, root);
+    LCA::doubling(&mut table, &parents);
+    LCA { depths, table }
+  }
+  fn dfs(g: &Vec<Vec<usize>>, parents: &mut Vec<usize>, depths: &mut Vec<usize>, u:usize) {
+    for &v in &g[u] {
+      if v == parents[u] { continue }
+      parents[v] = u;
+      depths[v] = depths[u] + 1;
+      LCA::dfs(g, parents, depths, v);
     }
   }
-
-  fn init(
-    &mut self,
-    root: usize
-  ) {
-    self.dfs(root, self.default_value, 0);
-    let k = self.parent.len();
-    let n = self.graph.len();
-    for i in 0..k-1 {
+  fn doubling(table: &mut Vec<Vec<usize>>, parents: &Vec<usize>) {
+    let max = table.len();
+    let n = parents.len();
+    for (i, &v) in parents.iter().enumerate() {
+      table[0][i] = v;
+    }
+    for i in 1..max {
       for j in 0..n {
-        if self.parent[i][j] == self.default_value {
-          self.parent[i+1][j] = self.default_value;
-        } else {
-          self.parent[i+1][j] = self.parent[i][self.parent[i][j]];
-        }
+        table[i][j] = table[i-1][table[i-1][j]];
       }
     }
   }
-
-  fn dfs(&mut self, v:usize, p:usize, d:usize) {
-    self.parent[0][v] = p;
-    self.dist[v] = d;
-    for i in 0..self.graph[v].len() {
-      let e = self.graph[v][i];
-      if e != p {
-        self.dfs(e, v, d+1);
-      }
-    }
-  }
-
-  fn query(&self, mut u:usize, mut v:usize) -> usize {
-    if self.dist[u] < self.dist[v] {
+  fn lca(&self, mut u:usize, mut v:usize) -> usize {
+    if self.depths[u] > self.depths[v] {
       std::mem::swap(&mut u, &mut v);
     }
-    let k = self.parent.len();
-    // LCAまでの距離を同じにする
-    for i in 0..k {
-      if (self.dist[u] - self.dist[v]) >> i & 1 == 1 {
-        u = self.parent[i][u];
+    let diff = self.depths[v] - self.depths[u];
+    let max = self.table.len();
+    for i in 0..max {
+      if diff >> i == 0 { break }
+      else if diff >> i & 1 == 1 {
+        v = self.table[i][v];
       }
     }
-    // LCAを求める
-    // 二分探索でもできる様子(そっちの方が早いと思われる)
-    if u == v { return u }
-    for i in (0..k).rev() {
-      if self.parent[i][u] != self.parent[i][v] {
-        u = self.parent[i][u];
-        v = self.parent[i][v];
+    if u == v { u } 
+    else {
+      for i in (0..max).rev() {
+        if self.table[i][u] != self.table[i][v] {
+          u = self.table[i][u];
+          v = self.table[i][v];
+        }
       }
+      self.table[0][u]
     }
-    self.parent[0][u]
+  }
+  fn distance(&self, u:usize, v:usize) -> usize {
+    let lca_index = self.lca(u, v);
+    self.depths[u] + self.depths[v] - 2 * self.depths[lca_index]
   }
 }
 
-pub fn main(
-) {
+fn main() {
   input! {
     n:usize,
-    edges:[(Usize1, Usize1);n-1],
+    edges:[(Usize1,Usize1);n-1],
     q:usize,
-    queries:[(Usize1, Usize1);q]
+    queries:[(Usize1,Usize1);q]
   }
 
   let mut g = vec![vec![];n];
-  for (f, t) in edges {
-    g[f].push(t);
-    g[t].push(f);
+  for (a,b) in edges {
+    g[a].push(b);
+    g[b].push(a);
   }
-
-  let mut lca = LCA::new(g, 1_000_000_000_000usize);
-  lca.init(0);
-
+  
+  let lca = LCA::new(g, n, 0, 25);
   for (a, b) in queries {
-    let pi = lca.query(a, b);
-    let lcav = lca.dist[pi];
-    println!("{}", lca.dist[a] + lca.dist[b] + 1 - 2 * lcav);
+    println!("{}", lca.distance(a,b) + 1);
   }
 }

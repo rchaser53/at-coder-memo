@@ -21,7 +21,10 @@
 - repeat_square
 - gcv
 - lcm
-- lca // lowest common ancestor
+- LCA // lowest common ancestor
+  - 木上の二点間の頂点も求められる
+  - 頂点u,vのパスの間にaがあるか判定
+    - u-aの距離 + a-vの距離 == u-vの距離の時に存在
 - com
   - 10^6くらいまでのnCkが求められるやつ(abc167e.rs)
 - mod_inv
