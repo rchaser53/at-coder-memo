@@ -134,6 +134,10 @@
   - abc174f.rs
 - 二次元いもす
   - tessoku_book_i.rs
+- 永続データ構造、永続スタック
+  - 親のindexを所持する配列とmapを作ることで
+  - 論理削除のように非破壊的なpushやpopができる配列が作れる
+  - abc273e.rs
 
 # インタラクティブ interactive 問題用のベース
 - abc244c.rs
