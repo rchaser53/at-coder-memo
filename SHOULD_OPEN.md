@@ -138,6 +138,8 @@
   - 親のindexを所持する配列とmapを作ることで
   - 論理削除のように非破壊的なpushやpopができる配列が作れる
   - abc273e.rs
+- float or doubleの特定の桁で四捨五入+0埋め
+  - abc274a.rs
 
 # インタラクティブ interactive 問題用のベース
 - abc244c.rs
