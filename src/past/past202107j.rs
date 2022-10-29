@@ -5,6 +5,7 @@ use std::collections::*;
 use std::cmp::Reverse;
 use std::cmp::Ordering;
 
+// https://atcoder.jp/contests/past202107-open/tasks/past202107_j
 // トポロジカルソート( topological sort )
 // ループの検出ができる(result.len() == nで判断)
 fn topological_sort(

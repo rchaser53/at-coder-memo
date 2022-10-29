@@ -2,6 +2,7 @@ use proconio::input;
 use proconio::marker::*;
 use std::collections::*;
 
+// https://atcoder.jp/contests/abc216/tasks/abc216_d
 // トポロジカルソート( topological sort )
 // ループの検出ができる(result.len() == nで判断)
 fn topological_sort(

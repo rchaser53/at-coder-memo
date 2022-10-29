@@ -4,6 +4,7 @@ use proconio::marker::*;
 use std::collections::*;
 use std::cmp::Ordering;
 
+// ref: https://atcoder.jp/contests/abc266/tasks/abc266_f
 fn main() { 
   input! { 
     n:usize,

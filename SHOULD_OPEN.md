@@ -61,6 +61,7 @@
   - 全ての点から点への最短距離が検出できる
 - topological_sort
   - ループ検出(有向グラフである必要がある)
+  - https://atcoder.jp/contests/past202107-open/tasks/past202107_j
 - create_primes
   - 素数列挙(O(n)注意)
 - compress
@@ -127,7 +128,7 @@
   - abc266e.rs
 - ループ検出
   - 無向グラフでも利用できる
-  - abc
+  - abc266f2.rs
 - 平面走査
   - 二次元平面上でa <= x && y <= b の値がO(logN)で求められる
   - 具体的には部分配列のユニークな値の数とかが求められる
