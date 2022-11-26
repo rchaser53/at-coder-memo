@@ -141,6 +141,10 @@
   - abc273e.rs
 - float or doubleの特定の桁で四捨五入+0埋め
   - abc274a.rs
+- monotonic stack(単調stack)
+  - 配列Aにおいてある要素a[i]の値よりも前(j<i)にあるより小さい最初の値(a[j])を効率的に見つけられる
+    - ある要素a[i]が0<=j<=iの中で最小の場合-1が設定されている
+  - monotonic_stack.rs
 
 # インタラクティブ interactive 問題用のベース
 - abc244c.rs
