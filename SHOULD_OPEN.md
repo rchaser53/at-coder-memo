@@ -46,6 +46,8 @@
   - 垂線引くやつ
 - union_find(sizeが使えるやつ)
   - 小さければ自己交差とかも求められる
+  - abc279f.rs
+    - 逆引きできるようにして集合のマージまでサポートする
 - kruskal(最小全域木)
   - kruskal_problem
 - LazySegmentTree(遅延セグ木)
