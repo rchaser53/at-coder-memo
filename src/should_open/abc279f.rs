@@ -4,7 +4,7 @@ use proconio::marker::*;
 use std::cmp::Ordering;
 use std::collections::*;
 
-// usizeでsizeも使えるunion_find
+// usizeでsizeも使える union_find
 struct UnionFind {
   parents: Vec<usize>,
   sizes: Vec<usize>,
