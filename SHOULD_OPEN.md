@@ -50,6 +50,11 @@
     - 逆引きできるようにして集合のマージまでサポートする
 - kruskal(最小全域木)
   - kruskal_problem
+  - abc282e.rs
+    - ある得点の入る動作を木として表現でき、その動作で得た特典の合計の最大値、最小値を求めたい際などにも使える
+      - 完全木を作った後に、クラスカル法を使用する
+      - abc282e.rsの場合、2つを選んで得点を得て1つを削除するという動作だった
+      - https://atcoder.jp/contests/abc282/tasks/abc282_e
 - LazySegmentTree(遅延セグ木)
 - permutation
   - 最初にsortをするのを忘れずに
