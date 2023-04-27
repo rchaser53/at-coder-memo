@@ -10,29 +10,46 @@ fn main() {
     a:[Usize1;n]
   }
   
-  let mut memo = vec![0;n];
-  let mut loop_index = vec![-1;n];
-  let mut result = 0;
+  let mut seen = vec![false;n];
+  let mut memo = vec![None;n];
+
   for i in 0..n {
-    if loop_index[i] != -1 {
-      continue
+    if seen[i] { continue }
+    let mut map = HashMap::new();
+    let mut ci = i;
+    let mut count = 0;
+    while count < 2*n {
+      seen[ci] = true;
+      count += 1;
+      let entry = map.entry(ci).or_insert(0);
+      *entry += 1;
+
+      if 2 < *entry { break }
+      ci = a[ci];
     }
-    let mut v = i;
-    memo[i] = 1;
-    loop_index[i] = i as i32;
-    loop {
-      let nv = a[v];
-      if memo[nv] != 0 {
-        if loop_index[nv] == i as i32 {
-          result += memo[v] + 1 - memo[nv];
-        }
-        break
+
+    let mut temp = vec![];
+    for (key, val) in map {
+      if 2 <= val {
+        temp.push(key);
       }
-      loop_index[nv] = i as i32;
-      memo[nv] = memo[v] + 1;
-      v = nv;
+    }
+    temp.sort();
+    let max = temp[0];
+    
+    for key in temp {
+      memo[key] = Some(max);
     }
   }
- 
+
+  let mut result = 0;
+  for i in 0..n {
+    if let Some(num) = memo[i] {
+      if num <= i {
+        result += 1;
+      }
+    }
+  }
+
   println!("{}", result);
 }
