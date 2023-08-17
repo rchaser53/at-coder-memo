@@ -160,6 +160,8 @@
   - 配列Aにおいてある要素a[i]の値よりも前(j<i)にあるより小さい最初の値(a[j])を効率的に見つけられる
     - ある要素a[i]が0<=j<=iの中で最小の場合-1が設定されている
   - monotonic_stack.rs
-
+- 巨大MOD
+  - const MOD:usize = 2305843009213693951;
+  - const MOD:usize = 100_000_000_007;
 # インタラクティブ interactive 問題用のベース
 - abc244c.rs
