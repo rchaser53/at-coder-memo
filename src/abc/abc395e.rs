@@ -27,19 +27,22 @@ fn main() {
   let default = 10usize.pow(18);
   let mut memo = vec![default;2*n];
   memo[0] = 0;
-  let mut stack = vec![(0,0)];
-  while !stack.is_empty() {
-    let mut new_stack = vec![];
-    while let Some((ci,cv)) = stack.pop() {
-      for &(ni,av) in g[ci].iter() {
-        let nv = cv+av;
-        if memo[ni] > nv {
-          memo[ni] = nv;
-          new_stack.push((ni,nv));
-        }
+  // BTreeSetだと間に合わない
+  let mut que = BinaryHeap::new();
+  que.push((Reverse(0),0));
+  while let Some((Reverse(cv),ci)) = que.pop() {
+    if memo[ci] < cv {
+      continue
+    }
+    let m = g[ci].len();
+    for i in 0..m {
+      let (nj,av) = g[ci][i];
+      let nv = cv + av;
+      if memo[nj] > nv {
+        memo[nj] = nv;
+        que.push((Reverse(nv),nj));
       }
     }
-    stack = new_stack;
   }
   println!("{}", memo[n-1].min(memo[2*n-1]));
 }
