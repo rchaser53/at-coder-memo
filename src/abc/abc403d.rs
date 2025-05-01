@@ -4,49 +4,34 @@ use proconio::marker::*;
 use std::marker::PhantomData;
 use std::cmp::*;
 use std::collections::*;
+use itertools::Itertools;
+
 
 fn main() {
   input! {
     n:usize,
-    d:isize,
-    a:[isize;n]
+    d:usize,
+    a:[usize;n]
   }
 
-  let mut map = BTreeMap::new();
-  for v in a {
-    *map.entry(v).or_insert(0) += 1;
-  }
-  
-  let mut memo = vec![];
-  while let Some((k, v)) = map.pop_first() {
-    let mut arr = vec![(k, v)];
-    for i in 1.. {
-      let nd = d * i;
-      if let Some((nk, nv)) = map.get_key_value(&(k + nd)) {
-        arr.push((*nk, *nv));
-        map.remove(&(k + nd));
-      } else {
-        break;
-      }
-    }
-    memo.push(arr);
+  let max = *a.iter().max().unwrap();
+  let map = a.iter().map(|&x| (x, 1usize)).into_grouping_map().sum();
+
+  if d == 0 {
+    println!("{}", n - map.len());
+    return
   }
 
-  let mut result = 0;
-  for i in 0..memo.len() {
-    let m = memo[i].len();
-    let mut ov = 0;
-    let mut ev = 0;
-
-    for j in 0..m {
-      if j % 2 == 0 {
-        ev += memo[i][j].1;
-      } else {
-        ov += memo[i][j].1;
-      }
-    }
-
-    result += std::cmp::min(ov, ev);
-  }
-  println!("{result}");
+  println!("{}",
+    (0..d)
+      .map(|r| {
+        (r..=max)
+          .step_by(d)
+          .map(|x| *map.get(&x).unwrap_or(&0))
+          .tuple_windows()
+          .fold((0,0), |(a,b), (x,y)| (b, (a+x).min(b+y)))
+          .1
+      })
+      .sum::<usize>()
+  );
 }
