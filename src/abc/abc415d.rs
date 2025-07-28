@@ -9,31 +9,22 @@ fn main() {
   input! {
     mut n:usize,
     m:usize,
-    mut ab:[(usize, usize);m],
+    ab:[(usize, usize);m],
   }
 
-  ab.sort_by(|a, b| {
-    let v = (a.0-a.1).cmp(&(b.0-b.1));
-    if v == Ordering::Equal {
-      a.1.cmp(&b.1).reverse()
-    } else {
-      v
-    }
-  });
-  // println!("{:?}", &ab);
-  let mut count = 0;
+  let mut que = Vec::new();
   for (a,b) in ab {
-    if a > n {
-      continue;
-    }
-    let diff = a - b;
-    let base_num = n - a;
+    que.push((a-b, a, b));
+  }
 
-    let x = 1 + base_num / diff;
+  que.sort();
+  let mut count = 0;
+  for (d,a,_b) in que {
+    if a > n { continue }
+    let x = (n-a) / d + 1;
     count += x;
-    n = b;
+    n -= x * d;
   }
   
-
   println!("{}", count);
 }
