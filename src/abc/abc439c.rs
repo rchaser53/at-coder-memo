@@ -5,51 +5,39 @@ use std::marker::PhantomData;
 use std::cmp::*;
 use std::collections::*;
 
-fn create_primes(n:usize) -> Vec<usize> {
-  let mut memo = vec![true;n+1];
-  memo[0] = false;
-  memo[1] = false;
-  for i in 2..=n {
-    if !memo[i] { continue }
-    for j in 2.. {
-      let ni = i * j;
-      if n < ni { break }
-      memo[ni] = false;
-    }
-  }
-
-  let mut primes = vec![];
-  for i in 0..memo.len() {
-    let v = memo[i];
-    if v {
-      primes.push(i);
-    }
-  }
-  primes
-}
-
 fn main() {
   input! {
     n:usize
   }
 
-  let mut primes = create_primes(n);
-  primes.push(1);
-  // println!("primes: {:?}", primes);
-  primes.sort();
-  let m = primes.len();
-  let mut set = HashSet::new();
+  let mut memo = vec![];
+
+  for i in 1..10usize.pow(4) {
+    let v = i*i;
+    if n < v {
+      break;
+    }
+    memo.push(v);
+  }
+
+  let mut map = HashMap::new();
+  let m = memo.len();
   for i in 0..m {
     for j in i+1..m {
-      let v = primes[i].pow(2) + primes[j].pow(2);
+      let v = memo[i] + memo[j];
       if n < v {
         break;
       }
-      set.insert(v);
+      *map.entry(v).or_insert(0) += 1;
     }
   }
 
-  let mut result = set.into_iter().collect::<Vec<usize>>();
+  let mut result = vec![];
+  for (k, v) in map.iter() {
+    if *v == 1 {
+      result.push(*k);
+    }
+  }
   result.sort();
 
   println!("{}", result.len());
